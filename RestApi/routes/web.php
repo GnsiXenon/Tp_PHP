@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HeroController;
+use App\Http\Controllers\CityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,12 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    return response()->json([
-        'title' => 'banos',
-        'description' => 'connard'
-    ]);
-});
+#Route::get('/test', function () {
+#    return response()->json([
+#        'title' => 'banos',
+#        'description' => 'connard'
+#    ]);
+#});
 
 Route::get('/hero',[HeroController::class , 'getHero']);
-Route::get('/createhero',[HeroController::class , 'createHero']);
+Route::get  ('/createhero',[HeroController::class , 'createHero']);
+Route::get  ('/createcity',[CityController::class , 'createCity']);

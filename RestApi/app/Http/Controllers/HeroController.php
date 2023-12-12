@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\HeroModel;
 use Illuminate\Http\Request;
 
 class HeroController extends Controller
@@ -15,9 +15,14 @@ class HeroController extends Controller
     }
     public function createHero(Request $request)
     {
-        $data = $request->input("test");
+        #$data = $request->input("test");
+        #return response()->json([
+        #    'banos' => "${data}"
+        #]);
+        $name = [$request->input("name")];
+        HeroModel::create($name);
         return response()->json([
-            'banos' => "${data}"
+            'code' => '200'
         ]);
     }
 }
