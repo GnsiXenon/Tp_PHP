@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HeroController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/test', function () {
+    return response()->json([
+        'title' => 'banos',
+        'description' => 'connard'
+    ]);
+});
+
+Route::get('/hero',[HeroController::class , 'getHero']);
+Route::get('/createhero',[HeroController::class , 'createHero']);
