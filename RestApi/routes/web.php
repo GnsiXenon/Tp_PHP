@@ -28,3 +28,4 @@ Route::get('/', function () {
 Route::get('/hero',[HeroController::class , 'getHero']);
 Route::get  ('/createhero',[HeroController::class , 'createHero']);
 Route::get  ('/createcity',[CityController::class , 'createCity']);
+Route::get  ('/getcity',[CityController::class , 'getcity']);
