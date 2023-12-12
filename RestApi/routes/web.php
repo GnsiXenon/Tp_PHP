@@ -18,12 +18,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-#Route::get('/test', function () {
-#    return response()->json([
-#        'title' => 'banos',
-#        'description' => 'connard'
-#    ]);
-#});
+Route::get('/banos', function () {
+    return response()->json([
+        'title' => 'banos',
+        'description' => 'guezz'
+    ]);
+});
 
 Route::get('/hero',[HeroController::class , 'getHero']);
 Route::get  ('/createhero',[HeroController::class , 'createHero']);
