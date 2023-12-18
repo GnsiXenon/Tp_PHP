@@ -52,8 +52,7 @@ class HeroController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'code' => '500',
-                'error' => 'Internal error',
-                'tkt' => $e
+                'error' => 'Internal error'
             ]);
         }
     }
