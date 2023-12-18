@@ -15,6 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('name');
         });
+
+        DB::table('vehicles')->insert([
+            ['name' => 'Car'],
+            ['name' => 'Bike'],
+            ['name' => 'Bus'],
+            ['name' => 'Train'],
+            ['name' => 'Batmobile'],
+            ['name' => 'Quinjet'],
+            ['name' => 'PoliceCar'],
+            
+        ]);
     }
 
     /**

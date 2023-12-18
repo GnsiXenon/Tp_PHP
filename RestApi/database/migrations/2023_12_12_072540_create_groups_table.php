@@ -15,6 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('name');
         });
+
+        DB::table('groups')->insert([
+            ['name' => 'Avengers'],
+            ['name' => 'Fantastic Four'],
+            ['name' => 'Guardians Of The Galaxy'],
+            ['name' => 'Teen Titans'],
+            ['name' => 'Justice League'],
+            ['name' => 'Young Avengers'],
+        ]);
     }
 
     /**

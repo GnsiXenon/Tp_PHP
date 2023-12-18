@@ -15,6 +15,24 @@ return new class extends Migration
             $table->id();
             $table->string('name');
         });
+
+        DB::table('cities')->insert([
+            ['name' => 'New York'],
+            ['name' => 'London'],
+            ['name' => 'Gotham'],
+            ['name' => 'Metropolis'],
+            ['name' => 'Wakanda'],
+            ['name' => 'Asgard'],
+            ['name' => 'Atlantis'],
+            ['name' => 'Themyscira'],
+            ['name' => 'Kamar-Taj'],
+            ['name' => 'Xandar'],
+            ['name' => 'Knowhere'],
+            ['name' => 'Sokovia'],
+            ['name' => 'Madripoor'],
+            ['name' => 'Genosha'],
+            ['name' => 'Latveria'],
+        ]);
     }
 
     /**

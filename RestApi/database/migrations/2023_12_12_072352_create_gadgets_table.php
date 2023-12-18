@@ -15,6 +15,21 @@ return new class extends Migration
             $table->id();
             $table->string('name');
         });
+
+        DB::table('gadgets')->insert([
+            ['name' => 'Shield'],
+            ['name' => 'Mjolnir'],
+            ['name' => 'Arc Reactor'],
+            ['name' => 'Wakandan Shield'],
+            ['name' => 'Batarang'],
+            ['name' => 'Lasso Of Truth'],
+            ['name' => 'Utility Belt'],
+            ['name' => 'Web Shooters'],
+            ['name' => 'Eye Of Agamotto'],
+            ['name' => 'Infinity Gauntlet'],
+            ['name' => 'Tesseract'],        
+        ]);
+    
     }
 
     /**
