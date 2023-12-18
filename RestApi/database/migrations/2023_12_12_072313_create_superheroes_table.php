@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('group_id');
             $table->timestamps();
         
-            $table->foreign('vehicle_id')->references('id')->on('vehicles');
+            //$table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->foreign('group_id')->references('id')->on('groups');
         });
     }

@@ -25,7 +25,12 @@ Route::get('/banos', function () {
     ]);
 });
 
-Route::get('/hero',[HeroController::class , 'getHero']);
+
+// Hero 
+Route::get  ('/gethero',[HeroController::class , 'getHero']);
 Route::get  ('/createhero',[HeroController::class , 'createHero']);
-Route::get  ('/createcity',[CityController::class , 'createCity']);
+
+// City 
 Route::get  ('/getcity',[CityController::class , 'getcity']);
+Route::get  ('/createcity',[CityController::class , 'createCity']);
+
