@@ -19,12 +19,12 @@ return new class extends Migration
             $table->string('hair_color');
             $table->string('origin_planet');
             $table->text('description');
-           // $table->unsignedBigInteger('vehicle_id');
-           // $table->unsignedBigInteger('group_id');
+            $table->unsignedBigInteger('vehicle_id')->nullable();
+            $table->unsignedBigInteger('group_id')->nullable();
             $table->timestamps();
         
-            //$table->foreign('vehicle_id')->references('id')->on('vehicles');
-            //$table->foreign('group_id')->references('id')->on('groups');
+            $table->foreign('vehicle_id')->references('id')->on('vehicles');
+            $table->foreign('group_id')->references('id')->on('groups');
         });
     }
 
