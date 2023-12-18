@@ -58,4 +58,5 @@ Route::get  ('/createsuperpower',[SuperPowerController::class , 'createSuperPowe
 // User
 Route::get  ('/getuser',[UserController::class , 'getUser']);
 Route::get  ('/createuser',[UserController::class , 'createUser']);
+Route::get  ('/connect',[UserController::class , 'UserConnect']);
 

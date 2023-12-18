@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function getUser()
     {
-        $users = DB::table('users')->get(['name' , 'email' , 'avatar' ,'password']);
+        $users = DB::table('users')->get(['name' , 'email' , 'avatar']);
 
         if ($users->isEmpty()) {
             return response()->json([
@@ -20,6 +20,25 @@ class UserController extends Controller
             return response()->json([
                 'code' => '200',
                 'data' => $users
+            ]);
+        }
+    }
+    public function UserConnect(Request $request)
+    {
+        $password = $request->input("password");
+        $id = $request->input("id");
+        $user = DB::table('users')->where('id', $id)->first();
+        $passworduser = $user->password;
+
+        if (hash('sha256', $password) === $passworduser) {
+            return response()->json([
+                'code' => '200',
+                'message' => 'Password matched'
+            ]);
+        } else {
+            return response()->json([
+                'code' => '401',
+                'message' => 'Password mismatch'
             ]);
         }
     }
@@ -37,8 +56,7 @@ class UserController extends Controller
         ]);
 
         // Hash the password
-        $validatedData['password'] = bcrypt($validatedData['password']);
-
+        $validatedData['password'] = hash('sha256', $validatedData['password']);
         // Adding created_at and updated_at with current timestamps
         $validatedData['created_at'] = now();
         $validatedData['updated_at'] = now();
