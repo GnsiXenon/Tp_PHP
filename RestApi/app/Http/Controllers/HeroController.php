@@ -27,7 +27,8 @@ class HeroController extends Controller
 
     public function createHero(Request $request)
     {
-        //http://localhost:8000/createhero?name=banos&secret_identity=esteban&gender=f&hair_color=black&origin_planet=guezzland&description=guezz&group_id=0&vehicle_id=0
+        $userId = $request->input("userId");
+        //http://localhost:8000/createhero?name=banos&secret_identity=banos2&gender=m&hair_color=black&origin_planet=guezzland&description=guezz&group_id=0&vehicle_id=0&userId=4
         $validatedData = $request->validate([
             'name' => 'required|string',
             'secret_identity' => 'required|string',
@@ -45,6 +46,12 @@ class HeroController extends Controller
 
         try {
             DB::table('superheroes')->insert($validatedData);
+            $newId = DB::table('superheroes')->insertGetId($validatedData);
+            $linkdata = [
+                'user_id' => $userId,
+                'superhero_id' => $newId
+            ];
+            DB::table('user_superhero')->insert($linkdata);
             return response()->json([
                 'code' => '201',
                 'msg' => 'Hero created successfully'
@@ -52,7 +59,8 @@ class HeroController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'code' => '500',
-                'error' => 'Internal error'
+                'error' => 'Internal error',
+                'tkt' => $e
             ]);
         }
     }

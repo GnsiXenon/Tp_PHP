@@ -71,7 +71,6 @@ class UserController extends Controller
             return response()->json([
                 'code' => '500',
                 'error' => 'Internal error',
-                'tkt' => $e
             ]);
         }
     }
