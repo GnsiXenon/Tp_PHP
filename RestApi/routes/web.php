@@ -32,8 +32,7 @@ Route::get('/banos', function () {
 
 
 // Hero 
-Route::get  ('/gethero',[HeroController::class , 'getHero']);
-Route::get  ('/createhero',[HeroController::class , 'createHero']);
+
 
 // City 
 Route::get  ('/getcity',[CityController::class , 'getcity']);
