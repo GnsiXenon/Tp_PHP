@@ -6,6 +6,12 @@ use App\Http\Controllers\PowerHeroController;
 use App\Http\Controllers\CityHeroController;
 use App\Http\Controllers\GadgetHeroController;
 use App\Http\Controllers\GroupHeroController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\VehiculeController;
+use App\Http\Controllers\GadgetController;
+use App\Http\Controllers\SuperPowerController;
 
 // return all the routes possible
 
@@ -39,8 +45,37 @@ Route::get('/', function () {
     ]);;
 });
 
+// Hero
 Route::get('gethero',[HeroController::class , 'getHero']);
 Route::post('createhero',[HeroController::class , 'createHero']);
+
+// User
+Route::get ('getuser',[UserController::class , 'getUser']);
+Route::get('connect',[UserController::class , 'UserConnect']);
+Route::post('createuser',[UserController::class , 'createUser']);
+
+// City 
+Route::get('getcity',[CityController::class , 'getcity']);
+Route::post('createcity',[CityController::class , 'createCity']);
+
+// Group 
+Route::get('getgroup',[GroupController::class , 'getGroup']);
+Route::post('creategroup',[GroupController::class , 'createGroup']);
+
+// Vehicule
+Route::get('getvehicule',[VehiculeController::class , 'getVehicule']);
+Route::post('createvehicule',[VehiculeController::class , 'createVehicule']);
+
+// Gadget
+Route::get('getgadget',[GadgetController::class , 'getGadget']);
+Route::post('creategadget',[GadgetController::class , 'createGadget']);
+
+// SuperPower
+Route::get('getsuperpower',[SuperPowerController::class , 'getSuperPower']);
+Route::post('createsuperpower',[SuperPowerController::class , 'createSuperPower']);
+
+
+// Join table 
 
 Route::post('addpowerhero',[PowerHeroController::class , 'addPowerHero']);
 Route::delete('deletepowerhero',[PowerHeroController::class , 'deletePowerHero']);
