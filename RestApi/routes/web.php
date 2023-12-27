@@ -32,31 +32,7 @@ Route::get('/banos', function () {
 
 
 // Hero 
-Route::get  ('/gethero',[HeroController::class , 'getHero']);
-Route::get  ('/createhero',[HeroController::class , 'createHero']);
 
-// City 
-Route::get  ('/getcity',[CityController::class , 'getcity']);
-Route::get  ('/createcity',[CityController::class , 'createCity']);
 
-// Group 
-Route::get  ('/getgroup',[GroupController::class , 'getGroup']);
-Route::get  ('/creategroup',[GroupController::class , 'createGroup']);
 
-// Vehicule
-Route::get  ('/getvehicule',[VehiculeController::class , 'getVehicule']);
-Route::get  ('/createvehicule',[VehiculeController::class , 'createVehicule']);
-
-// Gadget
-Route::get  ('/getgadget',[GadgetController::class , 'getGadget']);
-Route::get  ('/creategadget',[GadgetController::class , 'createGadget']);
-
-// SuperPower
-Route::get  ('/getsuperpower',[SuperPowerController::class , 'getSuperPower']);
-Route::get  ('/createsuperpower',[SuperPowerController::class , 'createSuperPower']);
-
-// User
-Route::get  ('/getuser',[UserController::class , 'getUser']);
-Route::get  ('/createuser',[UserController::class , 'createUser']);
-Route::get  ('/connect',[UserController::class , 'UserConnect']);
 

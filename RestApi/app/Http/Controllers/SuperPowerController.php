@@ -31,9 +31,6 @@ class SuperPowerController extends Controller
             'name' => 'required|string',
         ]);
 
-        // Adding created_at and updated_at with current timestamps
-        $validatedData['created_at'] = now();
-        $validatedData['updated_at'] = now();
 
         try {
             DB::table('superpowers')->insert($validatedData);
@@ -44,7 +41,7 @@ class SuperPowerController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'code' => '500',
-                'error' => 'Internal error'
+                'error' => 'Internal error',
             ]);
         }
     }
