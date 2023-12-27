@@ -19,6 +19,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if (env('APP_ENV') !== 'local') {
+            URL::forceScheme("https");
+        }
     }
+       /**
+    * Bootstrap any application services.
+    *
+    * @return void
+    */
+
+
 }
