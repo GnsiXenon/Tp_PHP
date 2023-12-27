@@ -12,6 +12,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\GadgetController;
 use App\Http\Controllers\SuperPowerController;
+use App\Http\Controllers\SessionController;
 use App\Http\Controllers\ApiController;
 
 // return all the routes possible
@@ -33,6 +34,7 @@ Route::post('createhero',[HeroController::class , 'createHero']);
 Route::get ('getuser',[UserController::class , 'getUser']);
 Route::get('connect',[UserController::class , 'UserConnect']);
 Route::post('createuser',[UserController::class , 'createUser']);
+Route::get('checkSession',[UserController::class , 'CheckSession']);
 
 // City 
 Route::get('getcity',[CityController::class , 'getcity']);
