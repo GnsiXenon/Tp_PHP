@@ -13,37 +13,17 @@ use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\GadgetController;
 use App\Http\Controllers\SuperPowerController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\ApiController;
 
 // return all the routes possible
 
 Route::get('/', function () {
-     return response()->json([
-            //return all routes possible
-            'routes' => [
-                'get' => [
-                    '/banos',
-                    '/gettask',
-                    '/gethero',
-                    '/getcity',
-                    '/getgroup',
-                    '/getvehicule',
-                    '/getgadget',
-                    '/getsuperpower',
-                    '/getuser',
-                    '/connect',
-                ],
-                'post' => [
-                    '/createhero',
-                    '/createtask',
-                    '/createcity',
-                    '/creategroup',
-                    '/createvehicule',
-                    '/creategadget',
-                    '/createsuperpower',
-                    '/createuser',
-                ],
-            ]
-    ]);;
+    return response()->json([
+        'code' => '200',
+        'data' => [
+            'endpoints' => (new ApiController)->getAllEndpoints()
+        ]
+    ]);
 });
 
 // Hero

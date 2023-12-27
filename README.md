@@ -110,5 +110,19 @@ api/creategroup?name=test
 
 
 
+## Documentation 
+
+dans le path /doc 
+
+```
+Apres avoir faire la documentation dans le fichier faire :
+
+-- php artisan l5-swagger:generate
+
+puis lancer l'api en ligne
+
+```
+
+
 
 

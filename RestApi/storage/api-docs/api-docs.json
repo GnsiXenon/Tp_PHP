@@ -1,0 +1,214 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Superhero API",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
+    "paths": {
+        "/api": {
+            "get": {
+                "tags": [
+                    "Endpoints"
+                ],
+                "summary": "Get list of endpoints",
+                "description": "Returns list of endpoints",
+                "operationId": "api",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No endpoints found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/gethero": {
+            "get": {
+                "tags": [
+                    "Hero"
+                ],
+                "summary": "Get list of superheros",
+                "description": "Returns list of superheros",
+                "operationId": "getHero",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No superheros found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/createhero": {
+            "post": {
+                "tags": [
+                    "Hero"
+                ],
+                "summary": "Create a new hero",
+                "description": "Create a new hero",
+                "operationId": "createHero",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of the hero",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "secret_identity",
+                        "in": "query",
+                        "description": "Secret identity of the hero",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "gender",
+                        "in": "query",
+                        "descrition": "Gender of the hero",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "hair_color",
+                        "in": "query",
+                        "description": "Hair color of the hero",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "origin_planet",
+                        "in": "query",
+                        "description": "Origin planet of the hero",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Description of the hero",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "description": "Id of the user who created the hero",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "requestBody": {
+                    "description": "example of the body request",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "banos"
+                                    },
+                                    "secret_identity": {
+                                        "type": "string",
+                                        "example": "banos2"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "example": "male"
+                                    },
+                                    "hair_color": {
+                                        "type": "string",
+                                        "example": "black"
+                                    },
+                                    "origin_planet": {
+                                        "type": "string",
+                                        "example": "guezzland"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "guezz"
+                                    },
+                                    "userId": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Hero created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "string",
+                                            "example": "201"
+                                        },
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Hero created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "string",
+                                            "example": "500"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Internal error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
