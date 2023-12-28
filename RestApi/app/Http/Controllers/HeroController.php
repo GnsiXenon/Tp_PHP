@@ -167,6 +167,7 @@ class HeroController extends Controller
             'hair_color' => 'required|string',
             'origin_planet' => 'required|string',
             'description' => 'required|string',
+            'image' => 'nullable',
             // 'vehicle_id' => 'nullable',
             // 'group_id' => 'nullable',
         ]);
