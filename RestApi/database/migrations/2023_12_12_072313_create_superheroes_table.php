@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string('secret_identity');
             $table->string('gender');
             $table->string('hair_color');
-            $table->string('origin_planet');
+            $table->string('origin_planet');    
             $table->text('description');
+            $table->binary('image'); 
             $table->timestamps();
         });
     }
