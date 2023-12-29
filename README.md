@@ -52,13 +52,13 @@ api/creategroup?name=test
 ### Delete 
 ```http
 
-/api/addpowerhero?superhero_id=ID&superpower_id=ID
+/api/deletepowerhero?superhero_id=ID&superpower_id=ID
 
-/api/addcityhero?superhero_id=ID&city_id=ID
+/api/deletecityhero?superhero_id=ID&city_id=ID
 
-/api/addgadgethero?superhero_id=ID&gadget_id=ID
+/api/deletegadgethero?superhero_id=ID&gadget_id=ID
 
-/api/addgrouphero?superhero_id=ID&group_id=ID
+/api/deletegrouphero?superhero_id=ID&group_id=ID
 
 ```
 
@@ -88,13 +88,13 @@ api/creategroup?name=test
 #### Specifique au hero
 ```http
 
-/api/addpowerhero?superhero_id=ID
+/api/getpowerhero?superhero_id=ID
 
-/api/addcityhero?superhero_id=ID
+/api/getcityhero?superhero_id=ID
 
-/api/addgadgethero?superhero_id=ID
+/api/getgadgethero?superhero_id=ID
 
-/api/addgrouphero?superhero_id=ID
+/api/getgrouphero?superhero_id=ID
 
 ```
 
