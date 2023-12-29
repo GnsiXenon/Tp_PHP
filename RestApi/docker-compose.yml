@@ -1,0 +1,14 @@
+services:
+  api:
+    image: tomyj/tp-php-api
+    container_name: php-api
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    volumes:
+      - api-volume:/app/database
+volumes:
+  api-volume:
