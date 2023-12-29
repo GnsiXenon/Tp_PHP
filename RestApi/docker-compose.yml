@@ -1,5 +1,6 @@
 services:
   api:
+    image: tomyj/tp-php-api
     container_name: php-api
     build:
       context: .
