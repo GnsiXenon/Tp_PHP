@@ -7,6 +7,17 @@ use Illuminate\Support\Facades\DB;
 
 class GadgetController extends Controller
 {
+/**
+ * @OA\Get(
+ *    path="/api/getgadget",
+ *  summary="Get list of gadgets",
+ * tags={"Gadget"},
+ * @OA\Response(
+ *  response=200,
+ * description="A list with gadgets"
+ * )
+ * )
+ */
     public function getGadget()
     {
         $gadget = DB::table('gadgets')->get(['name']);
@@ -23,6 +34,46 @@ class GadgetController extends Controller
             ]);
         }
     }
+
+/**
+ * @OA\Post(
+ *   path="/api/creategadget",
+ *  summary="Create a gadget",
+ * tags={"Gadget"},
+ * @OA\Parameter(
+ *   description="Name of the gadget",
+ *  in="query",
+ * name="name",
+ * required=true,
+ * @OA\Schema(
+ * type="string"
+ * )
+ * ),
+* @OA\RequestBody(
+*   required=false,
+* description="example of the body request",
+*  @OA\JsonContent(
+* @OA\Property(property="name", type="string", example="Bow"),
+* )
+ * ),
+ * @OA\Response(
+ * response=201,
+ * description="Gadget created"
+ * ),
+ * @OA\Response(
+ * response=400,
+ * description="Invalid input"
+ * ),
+ * @OA\Response(
+ * response=409,
+ * description="Gadget already exists"
+ * ),
+ * @OA\Response(
+ * response=500,
+ * description="Internal error"
+ * )
+ * )
+ */
 
     public function createGadget(Request $request)
     {

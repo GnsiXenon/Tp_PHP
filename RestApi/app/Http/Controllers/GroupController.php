@@ -7,6 +7,18 @@ use Illuminate\Support\Facades\DB;
 
 class GroupController extends Controller
 {
+
+    /**
+     * @OA\Get(
+     *    path="/api/getgroup",
+     *  summary="Get list of groups",
+     * tags={"Group"},
+     * @OA\Response(
+     *  response=200,
+     * description="A list with groups"
+     * )
+     * )
+     */
     public function getGroup()
     {
         $groups = DB::table('groups')->get(['name']);
@@ -23,6 +35,46 @@ class GroupController extends Controller
             ]);
         }
     }
+
+    /**
+     * @OA\Post(
+     *   path="/api/creategroup",
+     *  summary="Create a group",
+     * tags={"Group"},
+     * @OA\Parameter(
+     *   description="Name of the group",
+     *  in="query",
+     * name="name",
+     * required=true,
+     * @OA\Schema(
+     * type="string"
+     * )
+     * ),
+     * @OA\RequestBody(
+     *   required=false,
+     * description="example of the body request",
+     *
+     *  @OA\JsonContent(
+     * 
+     * @OA\Property(property="name", type="string", example="Avengers"),
+     * 
+     * 
+     * )
+     * ),
+     * @OA\Response(
+     * response=201,
+     * description="Group created"
+     * ),
+     * @OA\Response(
+     * response=400,
+     * description="Invalid input"
+     * ),
+     * @OA\Response(
+     * response=409,
+     * description="Group already exists"
+     * )
+     * )
+     */
 
     public function createGroup(Request $request)
     {
