@@ -7,6 +7,19 @@ use Illuminate\Support\Facades\DB;
 
 class CityController extends Controller
 {
+/**
+ * @OA\Get( 
+ *    path="/api/getcity",
+ *   summary="Get list of cities",
+ *  tags={"City"},
+ * @OA\Response(
+ *   response=200,
+ *  description="A list with cities"
+ * )
+ * )
+ * 
+ */
+
     public function getCity()
     {
         $cities = DB::table('cities')->get(['name']);
@@ -23,6 +36,48 @@ class CityController extends Controller
             ]);
         }
     }
+
+    /**
+     * * @OA\Post(
+ *  path="/api/createcity",
+ * summary="Create a new city",
+ * tags={"City"},
+ * @OA\Parameter(
+ *   name="name",
+ *  in="query",
+ * required=true,
+ * @OA\Schema(
+ *  type="string"
+ * )
+ * ),
+ *@OA\RequestBody(
+     *   required=false,
+     * description="example of the body request",
+     *  @OA\JsonContent(
+     * @OA\Property(property="name", type="string", example="Nantes"),
+     * )
+     * ),
+ * @OA\Response(
+ *  response=201,
+ * description="City created successfully"
+ * ),
+ * @OA\Response(
+ * response=400,
+ * description="Invalid name supplied"
+ * ),
+ * @OA\Response(
+ * response=409,
+ * description="City already exists"
+ * ),
+ * @OA\Response(
+ * response=500,
+ * description="Internal error"
+ * )
+ * )
+ * )
+ * )
+ * */
+
 
     public function createCity(Request $request)
     {
@@ -62,10 +117,6 @@ class CityController extends Controller
 
     private function isValid($input)
     {
-        // Vérification du nom ici
-        // Vous pouvez ajouter votre logique de validation pour le nom
-        // Par exemple, vérifier la longueur, les caractères autorisés, etc.
-        // Pour cet exemple, supposons que le nom doit avoir au moins 3 caractères
         return strlen($input) > 0;
     }
 

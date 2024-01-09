@@ -38,6 +38,197 @@
                 }
             }
         },
+        "/api/getcity": {
+            "get": {
+                "tags": [
+                    "City"
+                ],
+                "summary": "Get list of cities",
+                "operationId": "248f66ac32b58d88eb97e5d8125b53b9",
+                "responses": {
+                    "200": {
+                        "description": "A list with cities"
+                    }
+                }
+            }
+        },
+        "/api/createcity": {
+            "post": {
+                "tags": [
+                    "City"
+                ],
+                "summary": "Create a new city",
+                "operationId": "4cacec03b0ffd53308837da9803087ad",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "example of the body request",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nantes"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "City created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid name supplied"
+                    },
+                    "409": {
+                        "description": "City already exists"
+                    },
+                    "500": {
+                        "description": "Internal error"
+                    }
+                }
+            }
+        },
+        "/api/getgadget": {
+            "get": {
+                "tags": [
+                    "Gadget"
+                ],
+                "summary": "Get list of gadgets",
+                "operationId": "b7f2f8878039e427235e008047389ed3",
+                "responses": {
+                    "200": {
+                        "description": "A list with gadgets"
+                    }
+                }
+            }
+        },
+        "/api/creategadget": {
+            "post": {
+                "tags": [
+                    "Gadget"
+                ],
+                "summary": "Create a gadget",
+                "operationId": "d1e874091b0557eb3200a993b37b6508",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of the gadget",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "example of the body request",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Bow"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Gadget created"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "409": {
+                        "description": "Gadget already exists"
+                    },
+                    "500": {
+                        "description": "Internal error"
+                    }
+                }
+            }
+        },
+        "/api/getgroup": {
+            "get": {
+                "tags": [
+                    "Group"
+                ],
+                "summary": "Get list of groups",
+                "operationId": "4861e99ce0b18219280fabcb2d7bf0ff",
+                "responses": {
+                    "200": {
+                        "description": "A list with groups"
+                    }
+                }
+            }
+        },
+        "/api/creategroup": {
+            "post": {
+                "tags": [
+                    "Group"
+                ],
+                "summary": "Create a group",
+                "operationId": "9adf0bc6e30f3e1a7653d9922112f8ac",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of the group",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "example of the body request",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Avengers"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Group created"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "409": {
+                        "description": "Group already exists"
+                    }
+                }
+            }
+        },
         "/api/gethero": {
             "get": {
                 "tags": [
@@ -196,6 +387,255 @@
                                         "code": {
                                             "type": "string",
                                             "example": "500"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Internal error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/getsuperpower": {
+            "get": {
+                "tags": [
+                    "SuperPower"
+                ],
+                "summary": "Get list of superpowers",
+                "operationId": "d09b6212c12486d91f818b9d5662a098",
+                "responses": {
+                    "200": {
+                        "description": "A list with superpowers",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No superpowers found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/createsuperpower": {
+            "post": {
+                "tags": [
+                    "SuperPower"
+                ],
+                "summary": "Create a new superpower",
+                "operationId": "b27aa405694888c1dfbd26066e5ee081",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "example of the body request",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "SuperSpeed"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "SuperPower created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid name supplied"
+                    },
+                    "409": {
+                        "description": "SuperPower already exists"
+                    },
+                    "500": {
+                        "description": "Internal error"
+                    }
+                }
+            }
+        },
+        "/api/getvehicule": {
+            "get": {
+                "tags": [
+                    "Vehicule"
+                ],
+                "summary": "Get a list of vehicule",
+                "operationId": "07cbbc79ab2ede91172db8e2303f14d2",
+                "responses": {
+                    "200": {
+                        "description": "A list with vehicule",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "Vehicule1"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No vehicule found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "No vehicule found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/createvehicule": {
+            "post": {
+                "tags": [
+                    "Vehicule"
+                ],
+                "summary": "Create a new vehicule",
+                "operationId": "2b60e17dd689b160ce17914943677b50",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Vehicule name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Vehicule1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Vehicule created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Vehicule created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid name provided",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 400
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Invalid name provided"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Vehicule already exists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 409
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Vehicule already exists"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
                                         },
                                         "error": {
                                             "type": "string",

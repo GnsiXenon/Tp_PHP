@@ -7,6 +7,25 @@ use Illuminate\Support\Facades\DB;
 
 class SuperPowerController extends Controller
 {
+
+    /**
+     * @OA\Get(
+     * path="/api/getsuperpower",
+     * summary="Get list of superpowers",
+     * tags={"SuperPower"},
+     * @OA\Response(
+     *      response=200,
+     *      description="A list with superpowers",
+     *      @OA\JsonContent()
+     * ),
+     * @OA\Response(
+     *      response=404,
+     *      description="No superpowers found",
+     *      @OA\JsonContent()
+     *  )
+     * )
+     */
+
     public function getSuperPower()
     {
         $superpowers = DB::table('superpowers')->get(['name']);
@@ -23,6 +42,48 @@ class SuperPowerController extends Controller
             ]);
         }
     }
+
+    /**
+     * @OA\Post(
+     *  path="/api/createsuperpower",
+     * summary="Create a new superpower",
+     * tags={"SuperPower"},
+     * @OA\Parameter(
+     *  name="name",
+     * in="query",
+     * required=true,
+     * @OA\Schema(
+     * type="string"
+     * )
+     * ),
+     * @OA\RequestBody(
+     *  required=false,
+     * description="example of the body request",
+     * @OA\JsonContent(
+     * @OA\Property(property="name", type="string", example="SuperSpeed"),
+     * )
+     * ),
+     * @OA\Response(
+     * response=201,
+     * description="SuperPower created successfully"
+     * ),
+     * @OA\Response(
+     * response=400,
+     * description="Invalid name supplied"
+     * ),
+     * @OA\Response(
+     * response=409,
+     * description="SuperPower already exists"
+     * ),
+     * @OA\Response(
+     * response=500,
+     * description="Internal error"
+     * )
+     * )
+     * )
+     * 
+     * 
+     */
 
     public function createSuperPower(Request $request)
     {
