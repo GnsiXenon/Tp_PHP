@@ -4,7 +4,7 @@ services:
     container_name: php-api
     build:
       context: .
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     restart: unless-stopped
