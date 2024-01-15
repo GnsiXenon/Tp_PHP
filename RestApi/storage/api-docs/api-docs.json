@@ -229,7 +229,7 @@
                 }
             }
         },
-        "/api/gethero": {
+        "/api/heroes": {
             "get": {
                 "tags": [
                     "Hero"
@@ -257,7 +257,7 @@
                 }
             }
         },
-        "/api/createhero": {
+        "/api/hero": {
             "post": {
                 "tags": [
                     "Hero"
@@ -371,6 +371,67 @@
                                         "msg": {
                                             "type": "string",
                                             "example": "Hero created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "string",
+                                            "example": "500"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Internal error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/hero/{id}": {
+            "delete": {
+                "tags": [
+                    "Hero"
+                ],
+                "summary": "Delete a hero",
+                "description": "Delete a hero",
+                "operationId": "deleteHero",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the hero to delete",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Hero deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Hero deleted successfully"
                                         }
                                     },
                                     "type": "object"
@@ -558,7 +619,7 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "example": "Vehicule1"
+                                        "example": "Plane"
                                     }
                                 },
                                 "type": "object"

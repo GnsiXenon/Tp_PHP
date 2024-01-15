@@ -27,8 +27,16 @@ Route::get('/', function () {
 });
 
 // Hero
-Route::get('gethero',[HeroController::class , 'getHero']);
-Route::post('createhero',[HeroController::class , 'createHero']);
+Route::get('heroes',[HeroController::class , 'getHero']);
+Route::post('hero',[HeroController::class , 'createHero']);
+// Route::put('hero/{id}',[HeroController::class , 'updateHero']);
+Route::delete('hero/{id}',[HeroController::class , 'deleteHeroById']);
+// Route::get('hero/{id}',[HeroController::class , 'getHeroById']);
+
+
+//heroes --> get all heroes
+//hero --> create a hero / update a hero by id / delete a hero by id  / get a hero by id
+
 
 // User
 Route::get ('getuser',[UserController::class , 'getUser']);
@@ -40,17 +48,31 @@ Route::get('checkSession',[UserController::class , 'CheckSession']);
 Route::get('getcity',[CityController::class , 'getcity']);
 Route::post('createcity',[CityController::class , 'createCity']);
 
+//cities --> get all cities
+//city --> create a city / update a city by id / delete a city by id  / get a city by id
+
 // Group 
 Route::get('getgroup',[GroupController::class , 'getGroup']);
 Route::post('creategroup',[GroupController::class , 'createGroup']);
+
+//groups --> get all groups
+//group --> create a group / update a group by id / delete a group by id  / get a group by id
+
 
 // Vehicule
 Route::get('getvehicule',[VehiculeController::class , 'getVehicule']);
 Route::post('createvehicule',[VehiculeController::class , 'createVehicule']);
 
+//Vehicules --> get all Vehicules
+//Vehicule --> create a Vehicule / update a Vehicule by id / delete a Vehicule by id  / get a Vehicule by id
+
 // Gadget
 Route::get('getgadget',[GadgetController::class , 'getGadget']);
 Route::post('creategadget',[GadgetController::class , 'createGadget']);
+
+//Gadgets --> get all gadgets
+
+
 
 // SuperPower
 Route::get('getsuperpower',[SuperPowerController::class , 'getSuperPower']);

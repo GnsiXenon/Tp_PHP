@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('hair_color');
             $table->string('origin_planet');    
             $table->text('description');
-            $table->binary('image'); 
+            $table->binary('image')->nullable(); 
             $table->timestamps();
         });
     }

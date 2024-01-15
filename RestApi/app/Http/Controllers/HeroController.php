@@ -21,7 +21,7 @@ class HeroController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/api/gethero",
+     *      path="/api/heroes",
      *      operationId="getHero",
      *      tags={"Hero"},
      *      summary="Get list of superheros",
@@ -57,109 +57,11 @@ class HeroController extends Controller
         }
     }
 
-    /**
-     * @OA\Post(
-     *     path="/api/createhero",
-     *    tags={"Hero"},
-     *   summary="Create a new hero",
-     *  description="Create a new hero",
-     * operationId="createHero",
-     * parameters={
-     *    {
-     *       "name": "name",    
-     *     "in": "query",
-     *    "description": "Name of the hero",
-     *   "required": true,
-     * "type": "string"
-     * },
-     * {
-     * "name": "secret_identity",
-     * "in": "query",
-     * "description": "Secret identity of the hero",
-     * "required": true,
-     * "type": "string"
-     * },
-     * {
-     * "name": "gender",
-     * "in": "query",
-     * "descrition": "Gender of the hero",
-     * "required": true,
-     * "type": "string"
-     * },
-     * {
-     * "name": "hair_color",
-     * "in": "query",
-     * "description": "Hair color of the hero",
-     * "required": true,
-     * "type": "string"
-     * },
-     * {
-     * "name": "origin_planet",
-     * "in": "query",
-     * "description": "Origin planet of the hero",
-     * "required": true,
-     * "type": "string"
-     * },
-     * {
-     * "name": "description",
-     * "in": "query",
-     * "description": "Description of the hero",
-     * "required": true,
-     * "type": "string"
-     * },
-     * {
-     * "name": "userId",
-     * "in": "query",
-     * "description": "Id of the user who created the hero",
-     * "required": true,
-     * "type": "integer"
-     * },
-     * },
-     * 
-     *@OA\RequestBody(
-     *   required=false,
-     * description="example of the body request",
-     *
-     *  @OA\JsonContent(
-     * 
-     * @OA\Property(property="name", type="string", example="banos"),
-     * @OA\Property(property="secret_identity", type="string", example="banos2"),
-     * @OA\Property(property="gender", type="string", example="male"),
-     * @OA\Property(property="hair_color", type="string", example="black"),
-     * @OA\Property(property="origin_planet", type="string", example="guezzland"),
-     * @OA\Property(property="description", type="string", example="guezz"),
-     * @OA\Property(property="userId", type="integer", example="1"),
-     * 
-     * 
-     * )
-     * ),
-     * 
-     * @OA\Response(
-     *    response=201,
-     *   description="Hero created successfully",
-     *  @OA\JsonContent(
-     *    @OA\Property(property="code", type="string", example="201"),
-     *  @OA\Property(property="msg", type="string", example="Hero created successfully")
-     * )
-     * ),
-     * 
-     * @OA\Response(
-     *   response=500,
-     * description="Internal error",
-     * @OA\JsonContent(
-     * @OA\Property(property="code", type="string", example="500"),
-     * @OA\Property(property="error", type="string", example="Internal error")
-     * )
-     * )
-     * )
-     * )
-     * 
-     */
+    
 
     public function createHero(Request $request)
     {
         $userId = $request->input("userId");
-        //http://localhost:8000/createhero?name=banos&secret_identity=banos2&gender=m&hair_color=black&origin_planet=guezzland&description=guezz&group_id=0&vehicle_id=0&userId=4
         $validatedData = $request->validate([
             'name' => 'required|string',
             'secret_identity' => 'required|string',
@@ -196,4 +98,114 @@ class HeroController extends Controller
             ]);
         }
     }
+
+
+//getHeroById
+
+public function getHeroById($id)
+{
+    $superheros = DB::table('superheroes')->where('id', $id)->get(['name' , 'description']);
+
+    if ($superheros->isEmpty()) {
+        return response()->json([
+            'code' => '404',
+            'error' => 'No superheros found',
+            'data' => ''
+        ]);
+    } else {
+        return response()->json([
+            'code' => '200',
+            'data' => $superheros
+        ]);
+    }
+}
+
+//updateHero
+
+public function updateHeroById($id)
+{
+
+
+}
+
+/**
+ * @OA\Delete(
+ *     path="/api/hero/{id}",
+ *   tags={"Hero"},
+ *  summary="Delete a hero",
+ * description="Delete a hero",
+ * operationId="deleteHero",
+ * parameters={
+ *   {
+ *     "name": "id",
+ *    "in": "path",
+ *  "description": "Id of the hero to delete",
+ * "required": true,
+ * "type": "integer"
+ * }
+ * },
+ *  
+ * @OA\Response(
+ *  response=200,
+ * description="Hero deleted successfully",
+ * @OA\JsonContent(
+ * @OA\Property(property="code", type="string", example="200"),
+ * @OA\Property(property="msg", type="string", example="Hero deleted successfully")
+ * )
+ * 
+ * ),
+ * 
+ * @OA\Response(
+ * response=500,
+ * description="Internal error",
+ * @OA\JsonContent(
+ * @OA\Property(property="code", type="string", example="500"),
+ * @OA\Property(property="error", type="string", example="Internal error")
+ * )
+ * )
+ * )
+ * )
+ * 
+ * 
+ */
+
+//deleteHero
+
+public function deleteHeroById($id)
+{
+   //delete hero by id
+    try {
+        DB::table('superhero_city')->where('superhero_id', '=', $id)->delete();
+        DB::table('user_superhero')->where('superhero_id', '=', $id)->delete();
+        DB::table('superhero_group')->where('superhero_id', '=', $id)->delete();
+        DB::table('superhero_gadget')->where('superhero_id', '=', $id)->delete();
+        DB::table('superhero_superpower')->where('superhero_id', '=', $id)->delete();
+        DB::table('superheroes')->where('id', '=', $id)->delete();
+
+        return response()->json([
+            'code' => '',
+            'msg' => 'Le hero a bien été delete'
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'code' => '500',
+            //show the error message
+            'msg' => $e->getMessage(),
+            'error' => 'Internal error'
+        ]);
+    }
+
+    //supprimer le hero
+
+
+
+    
+
+
+
+
+    }
+
+
 }
