@@ -34,10 +34,6 @@ Route::delete('hero/{id}',[HeroController::class , 'deleteHeroById']);
 Route::get('hero/{id}',[HeroController::class , 'getHeroById']);
 
 
-//heroes --> get all heroes
-//hero --> create a hero / update a hero by id / delete a hero by id  / get a hero by id
-
-
 // User
 Route::get ('getuser',[UserController::class , 'getUser']);
 Route::get('connect',[UserController::class , 'UserConnect']);
@@ -45,8 +41,12 @@ Route::post('createuser',[UserController::class , 'createUser']);
 Route::get('checkSession',[UserController::class , 'CheckSession']);
 
 // City 
-Route::get('getcity',[CityController::class , 'getcity']);
-Route::post('createcity',[CityController::class , 'createCity']);
+Route::get('cities',[CityController::class , 'getcity']);
+Route::post('city',[CityController::class , 'createCity']);
+Route::put('city/{id}',[CityController::class , 'updateCityById']);
+Route::delete('city/{id}',[CityController::class , 'deleteCityById']);
+Route::get('city/{id}',[CityController::class , 'getCityById']);
+
 
 //cities --> get all cities
 //city --> create a city / update a city by id / delete a city by id  / get a city by id

@@ -9,7 +9,7 @@ class CityController extends Controller
 {
 /**
  * @OA\Get( 
- *    path="/api/getcity",
+ *    path="/api/cities",
  *   summary="Get list of cities",
  *  tags={"City"},
  * @OA\Response(
@@ -38,18 +38,53 @@ class CityController extends Controller
     }
 
     /**
+     * @OA\Get(
+     * path="/api/city/{id}",
+     * summary="Get a city by id",
+     * tags={"City"},
+     * @OA\Parameter(
+     * name="id",
+     * in="path",
+     * required=true,
+     * @OA\Schema(
+     * type="integer"
+     * )
+     * ),
+     * @OA\Response(
+     * response=200,
+     * description="A city"
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="City not found"
+     * )
+     * )
+     * )
+     * )
+     */
+
+    public function getCityById($id)
+    {
+        $city = DB::table('cities')->find($id);
+
+        if ($city) {
+            return response()->json([
+                'code' => '200',
+                'data' => $city
+            ]);
+        } else {
+            return response()->json([
+                'code' => '404',
+                'error' => 'No city found'
+            ]);
+        }
+    }
+
+    /**
      * * @OA\Post(
- *  path="/api/createcity",
+ *  path="/api/city",
  * summary="Create a new city",
  * tags={"City"},
- * @OA\Parameter(
- *   name="name",
- *  in="query",
- * required=true,
- * @OA\Schema(
- *  type="string"
- * )
- * ),
  *@OA\RequestBody(
      *   required=false,
      * description="example of the body request",
@@ -115,9 +150,138 @@ class CityController extends Controller
         }
     }
 
-    private function isValid($input)
+
+    /**
+     * @OA\Put(
+     * path="/api/city/{id}",
+     * summary="Update a city",
+     * tags={"City"},
+     * @OA\Parameter(
+     * name="id",
+     * in="path",
+     * required=true,
+     * @OA\Schema(
+     * type="integer"
+     * )
+     * ),
+     * @OA\RequestBody(
+     * required=false,
+     * description="example of the body request",
+     * @OA\JsonContent(
+     * @OA\Property(property="name", type="string", example="Nantes"),
+     * )
+     * ),
+     * @OA\Response(
+     * response=200,
+     * description="City updated successfully"
+     * ),
+     * @OA\Response(
+     * response=400,
+     * description="Invalid name supplied"
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="City not found"
+     * ),
+     * @OA\Response(
+     * response=500,
+     * description="Internal error"
+     * )
+     * )
+     * )
+     * )
+     * 
+     */
+
+    public function updateCityById(Request $request, $id)
     {
-        return strlen($input) > 0;
+        // Payload Json
+    $payload = json_decode(request()->getContent(), true);
+    //recuperer le hero
+    $hero = DB::table('cities')->find($id);
+
+    if ($hero) {
+        //on update le hero
+        try {
+            DB::table('cities')->where('id', '=', $id)->update($payload);
+            return response()->json([
+                'code' => '200',
+                'msg' => 'City updated successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'code' => '500',
+                'error' => 'Internal error'
+            ]);
+        }
+    } else {
+        return response()->json([
+            'code' => '404',
+            'error' => 'No city found'
+        ]);
     }
 
+}
+
+/**
+ * @OA\Delete(
+ * path="/api/city/{id}",
+ * summary="Delete a city",
+ * tags={"City"},
+ * @OA\Parameter(
+ * name="id",
+ * in="path",
+ * required=true,
+ * @OA\Schema(
+ * type="integer"
+ * )
+ * ),
+ * @OA\Response(
+ * response=200,
+ * description="City deleted successfully"
+ * ),
+ * @OA\Response(
+ * response=404,
+ * description="City not found"
+ * ),
+ * @OA\Response(
+ * response=500,
+ * description="Internal error"
+ * )
+ * )
+ * )
+ * )
+ * 
+ */
+
+public function deleteCityById($id)
+{
+    $city = DB::table('cities')->find($id);
+
+    if ($city) {
+        try {
+            DB::table('cities')->where('id', '=', $id)->delete();
+            return response()->json([
+                'code' => '200',
+                'msg' => 'City deleted successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'code' => '500',
+                'error' => 'Internal error'
+            ]);
+        }
+    } else {
+        return response()->json([
+            'code' => '404',
+            'error' => 'No city found'
+        ]);
+    }
+}
+
+
+private function isValid($input)
+{
+    return strlen($input) > 0;
+}
 }

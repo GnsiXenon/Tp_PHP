@@ -38,13 +38,13 @@
                 }
             }
         },
-        "/api/getcity": {
+        "/api/cities": {
             "get": {
                 "tags": [
                     "City"
                 ],
                 "summary": "Get list of cities",
-                "operationId": "248f66ac32b58d88eb97e5d8125b53b9",
+                "operationId": "cced4c622d2c63419fc7211320d896a6",
                 "responses": {
                     "200": {
                         "description": "A list with cities"
@@ -52,23 +52,116 @@
                 }
             }
         },
-        "/api/createcity": {
+        "/api/city/{id}": {
+            "get": {
+                "tags": [
+                    "City"
+                ],
+                "summary": "Get a city by id",
+                "operationId": "07da2ed63caf41f44d4973bf54ec0835",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A city"
+                    },
+                    "404": {
+                        "description": "City not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "City"
+                ],
+                "summary": "Update a city",
+                "operationId": "95284c9184eee68461de63f5c738a246",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "example of the body request",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nantes"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "City updated successfully"
+                    },
+                    "400": {
+                        "description": "Invalid name supplied"
+                    },
+                    "404": {
+                        "description": "City not found"
+                    },
+                    "500": {
+                        "description": "Internal error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "City"
+                ],
+                "summary": "Delete a city",
+                "operationId": "eac60f91698c8927d5f3cf1e3baa61f1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "City deleted successfully"
+                    },
+                    "404": {
+                        "description": "City not found"
+                    },
+                    "500": {
+                        "description": "Internal error"
+                    }
+                }
+            }
+        },
+        "/api/city": {
             "post": {
                 "tags": [
                     "City"
                 ],
                 "summary": "Create a new city",
-                "operationId": "4cacec03b0ffd53308837da9803087ad",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "b1855213aeeb3409390320a741e9e54c",
                 "requestBody": {
                     "description": "example of the body request",
                     "required": false,
