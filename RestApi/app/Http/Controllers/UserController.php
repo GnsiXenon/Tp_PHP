@@ -100,7 +100,7 @@ class UserController extends Controller
      {
          //http://localhost:8000/api/checkSession?cookie=
         // We return the user id if the session is valid
-         $cookie = $request->input("cookie");
+         $cookie = $request->header("auth");
          $session = DB::table('session')->where('cookie', '=', $cookie)->first();
          if ($session) {
              $now = now();
