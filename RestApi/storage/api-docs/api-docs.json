@@ -265,57 +265,6 @@
                 "summary": "Create a new hero",
                 "description": "Create a new hero",
                 "operationId": "createHero",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "Name of the hero",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "secret_identity",
-                        "in": "query",
-                        "description": "Secret identity of the hero",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "gender",
-                        "in": "query",
-                        "descrition": "Gender of the hero",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "hair_color",
-                        "in": "query",
-                        "description": "Hair color of the hero",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "origin_planet",
-                        "in": "query",
-                        "description": "Origin planet of the hero",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "description",
-                        "in": "query",
-                        "description": "Description of the hero",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "userId",
-                        "in": "query",
-                        "description": "Id of the user who created the hero",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
                 "requestBody": {
                     "description": "example of the body request",
                     "required": false,
@@ -402,6 +351,164 @@
             }
         },
         "/api/hero/{id}": {
+            "get": {
+                "tags": [
+                    "Hero"
+                ],
+                "summary": "Get a hero",
+                "description": "Get a hero",
+                "operationId": "getHeroById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the hero to get",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Hero found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "Hero1"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No hero found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "string",
+                                            "example": "404"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "No hero found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Hero"
+                ],
+                "summary": "Update a hero",
+                "description": "Update a hero",
+                "operationId": "updateHero",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the hero to get",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "requestBody": {
+                    "description": "example of the body request",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "banos"
+                                    },
+                                    "secret_identity": {
+                                        "type": "string",
+                                        "example": "banos2"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "example": "male"
+                                    },
+                                    "hair_color": {
+                                        "type": "string",
+                                        "example": "black"
+                                    },
+                                    "origin_planet": {
+                                        "type": "string",
+                                        "example": "guezzland"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "guezz"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Hero updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "msg": {
+                                            "type": "string",
+                                            "example": "Hero updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No hero found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "string",
+                                            "example": "404"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "No hero found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "delete": {
                 "tags": [
                     "Hero"

@@ -41,7 +41,7 @@ class HeroController extends Controller
 
     public function getHero()
     {
-        $superheros = DB::table('superheroes')->get(['name' , 'description']);
+        $superheros = DB::table('superheroes')->get(['id','name']);
 
         if ($superheros->isEmpty()) {
             return response()->json([
@@ -58,6 +58,54 @@ class HeroController extends Controller
     }
 
     
+    /**
+     * @OA\Post(
+     *     path="/api/hero",
+     *    tags={"Hero"},
+     *   summary="Create a new hero",
+     *  description="Create a new hero",
+     * operationId="createHero",
+     * 
+     * 
+     *@OA\RequestBody(
+     *   required=false,
+     * description="example of the body request",
+     *
+     *  @OA\JsonContent(
+     * 
+     * @OA\Property(property="name", type="string", example="banos"),
+     * @OA\Property(property="secret_identity", type="string", example="banos2"),
+     * @OA\Property(property="gender", type="string", example="male"),
+     * @OA\Property(property="hair_color", type="string", example="black"),
+     * @OA\Property(property="origin_planet", type="string", example="guezzland"),
+     * @OA\Property(property="description", type="string", example="guezz"),
+     * @OA\Property(property="userId", type="integer", example="1"),
+     * 
+     * 
+     * )
+     * ),
+     * 
+     * @OA\Response(
+     *    response=201,
+     *   description="Hero created successfully",
+     *  @OA\JsonContent(
+     *    @OA\Property(property="code", type="string", example="201"),
+     *  @OA\Property(property="msg", type="string", example="Hero created successfully")
+     * )
+     * ),
+     * 
+     * @OA\Response(
+     *   response=500,
+     * description="Internal error",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="string", example="500"),
+     * @OA\Property(property="error", type="string", example="Internal error")
+     * )
+     * )
+     * )
+     * )
+     * 
+     */
 
     public function createHero(Request $request)
     {
@@ -102,29 +150,167 @@ class HeroController extends Controller
 
 //getHeroById
 
+/**
+ * @OA\Get(
+ *     path="/api/hero/{id}",
+ *  tags={"Hero"},
+ * summary="Get a hero",
+ * description="Get a hero",
+ * operationId="getHeroById",
+ * parameters={
+ *  {
+ * "name": "id",
+ * "in": "path",
+ * "description": "Id of the hero to get",
+ * "required": true,
+ * "type": "integer"
+ * }
+ * },
+ * @OA\Response(
+ *  response=200,
+ * description="Hero found",
+ * @OA\JsonContent(
+ * @OA\Property(property="code", type="string", example="200"),
+ *  @OA\Property(property="data", type="array", @OA\Items(type="string", example="Hero1")),
+ * )
+ * ),
+ * @OA\Response(
+ * response=404,
+ * description="No hero found",
+ * @OA\JsonContent(
+ * @OA\Property(property="code", type="string", example="404"),
+ * @OA\Property(property="error", type="string", example="No hero found"),
+ * )
+ * )
+ * )
+ * )
+ * 
+ */
+
 public function getHeroById($id)
 {
-    $superheros = DB::table('superheroes')->where('id', $id)->get(['name' , 'description']);
+    $superhero = DB::table('superheroes')->find($id, ['id', 'name', 'description', 'secret_identity', 'gender', 'hair_color', 'origin_planet', 'description']);
 
-    if ($superheros->isEmpty()) {
-        return response()->json([
-            'code' => '404',
-            'error' => 'No superheros found',
-            'data' => ''
-        ]);
+    // Vérifier si le superhéros existe
+    if ($superhero) {
+        // Check si l'id est dans la table superheroes_city et si oui, on recupere toutes les cities associées
+        $cities = DB::table('superhero_city')->where('superhero_id', '=', $id)->get(['city_id']);
+        $citiesId = [];
+        foreach ($cities as $city) {
+            $citiesId[] = $city->city_id;
+        }
+        $superhero->cities = DB::table('cities')->whereIn('id', $citiesId)->get(['id', 'name']);
+        // Check si l'id est dans la table superheroes_group et si oui, on recupere tous les groupes associés
+        $groups = DB::table('superhero_group')->where('superhero_id', '=', $id)->get(['group_id']);
+        $groupsId = [];
+        foreach ($groups as $group) {
+            $groupsId[] = $group->group_id;
+        }
+        $superhero->groups = DB::table('groups')->whereIn('id', $groupsId)->get(['id', 'name']);
+        // Check si l'id est dans la table superheroes_superpower et si oui, on recupere tous les superpouvoirs associés
+        $superpowers = DB::table('superhero_superpower')->where('superhero_id', '=', $id)->get(['superpower_id']);
+        $superpowersId = [];
+        foreach ($superpowers as $superpower) {
+            $superpowersId[] = $superpower->superpower_id;
+        }
+        $superhero->superpowers = DB::table('superpowers')->whereIn('id', $superpowersId)->get(['id', 'name']);
+        // Check si l'id est dans la table superheroes_gadget et si oui, on récupère le gadget associé
+        $gadget = DB::table('superhero_gadget')->where('superhero_id', '=', $id)->first(['gadget_id']);
+        if ($gadget) {
+            $superhero->gadget = DB::table('gadgets')->where('id', '=', $gadget->gadget_id)->first(['id', 'name']);
+        }
     } else {
         return response()->json([
-            'code' => '200',
-            'data' => $superheros
-        ]);
+            'code' => '404',
+            'error' => 'No hero found',
+            'data' => ''
+        ]); 
     }
+
+    return response()->json([
+        'code' => '200',
+        'data' => $superhero
+    ]);
 }
 
-//updateHero
+/**
+ * @OA\Put(
+ *    path="/api/hero/{id}",
+ *  tags={"Hero"},
+ * summary="Update a hero",
+ * description="Update a hero",
+ * operationId="updateHero",
+ *  parameters={
+ *  {
+ * "name": "id",
+ * "in": "path",
+ * "description": "Id of the hero to get",
+ * "required": true,
+ * "type": "integer"
+ * }
+ * },
+ * @OA\RequestBody(
+ * required=false,
+ * description="example of the body request",
+ * @OA\JsonContent(
+* @OA\Property(property="name", type="string", example="banos"),
+* @OA\Property(property="secret_identity", type="string", example="banos2"),
+* @OA\Property(property="gender", type="string", example="male"),
+* @OA\Property(property="hair_color", type="string", example="black"),
+* @OA\Property(property="origin_planet", type="string", example="guezzland"),
+* @OA\Property(property="description", type="string", example="guezz"),
+*
+* )
+* ),
+*
+* @OA\Response(
+* response=200,
+* description="Hero updated successfully",
+* @OA\JsonContent(
+* @OA\Property(property="code", type="string", example="200"),
+* @OA\Property(property="msg", type="string", example="Hero updated successfully")
+* )
+* ),
+*
+* @OA\Response(
+* response=404,
+* description="No hero found",
+* @OA\JsonContent(
+* @OA\Property(property="code", type="string", example="404"),
+* @OA\Property(property="error", type="string", example="No hero found"),
+* )
+* )
+* )
+* )
+ */
 
 public function updateHeroById($id)
 {
+    // Payload Json
+    $payload = json_decode(request()->getContent(), true);
+    //recuperer le hero
+    $hero = DB::table('superheroes')->find($id);
 
+    if ($hero) {
+        //on update le hero
+        try {
+            DB::table('superheroes')->where('id', '=', $id)->update($payload);
+            return response()->json([
+                'code' => '200',
+                'msg' => 'Hero updated successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'code' => '500',
+                'error' => 'Internal error'
+            ]);
+        }
+    } else {
+        return response()->json([
+            'code' => '404',
+            'error' => 'No hero found'
+        ]);
+    }
 
 }
 
@@ -196,16 +382,7 @@ public function deleteHeroById($id)
         ]);
     }
 
-    //supprimer le hero
-
-
-
-    
-
-
-
 
     }
-
 
 }

@@ -22,6 +22,18 @@ return new class extends Migration
             $table->binary('image')->nullable(); 
             $table->timestamps();
         });
+
+        DB::table('superheroes')->insert([
+            'name' => 'Superman',
+            'secret_identity' => 'Clark Kent',
+            'gender' => 'Male',
+            'hair_color' => 'Black',
+            'origin_planet' => 'Krypton',
+            'description' => 'The Man of Steel',
+            'image' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**

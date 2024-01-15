@@ -29,9 +29,9 @@ Route::get('/', function () {
 // Hero
 Route::get('heroes',[HeroController::class , 'getHero']);
 Route::post('hero',[HeroController::class , 'createHero']);
-// Route::put('hero/{id}',[HeroController::class , 'updateHero']);
+Route::put('hero/{id}',[HeroController::class , 'updateHeroById']);
 Route::delete('hero/{id}',[HeroController::class , 'deleteHeroById']);
-// Route::get('hero/{id}',[HeroController::class , 'getHeroById']);
+Route::get('hero/{id}',[HeroController::class , 'getHeroById']);
 
 
 //heroes --> get all heroes

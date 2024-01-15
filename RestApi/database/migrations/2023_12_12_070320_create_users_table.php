@@ -22,6 +22,13 @@ return new class extends Migration
             $table->string('avatar')->nullable(); // Avatar of the user
             $table->timestamps();
         });
+
+        DB::table('users')->insert([
+            'name' => 'admin',
+            'email' => 'admin@gm.com',
+            'email_verified' => true,
+            'password' => '$2y'
+        ]);
     }
 
     /**
