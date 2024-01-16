@@ -36,7 +36,7 @@ class UserController extends Controller
 
     public function getUser()
     {
-        $users = DB::table('users')->get(['name' , 'email' , 'avatar']);
+        $users = DB::table('users')->get(['name' ,'firstname', 'email' , 'avatar']);
 
         if ($users->isEmpty()) {
             return response()->json([
@@ -136,6 +136,15 @@ class UserController extends Controller
      * )
      * ),
      * @OA\Parameter(
+     * description="Firstname of the user",
+     * in="query",
+     * name="firstname",
+     * required=true,
+     * @OA\Schema(
+     * type="string"
+     * )
+     * ),
+     * @OA\Parameter(
      * description="Email of the user",
      * in="query",
      * name="email",
@@ -222,6 +231,7 @@ class UserController extends Controller
         //http://localhost:8000/api/createuser?name=banos&email=banoslose@gmail.com&password=flodagnas54
         $validatedData = $request->validate([
             'name' => 'required|string',
+            'firstname' => 'required|string',
             'email' => 'required|string',
             'password' => 'required|string',
             'remember_token' => 'nullable|string',

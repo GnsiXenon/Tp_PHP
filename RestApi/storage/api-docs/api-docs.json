@@ -260,6 +260,115 @@
                 }
             }
         },
+        "/api/gadget/{id}": {
+            "get": {
+                "tags": [
+                    "Gadget"
+                ],
+                "summary": "Get a gadget by ID",
+                "operationId": "0eb13b1abc3963c2c8f6f1947f49bf3d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of gadget to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Gadget found"
+                    },
+                    "404": {
+                        "description": "Gadget not found"
+                    },
+                    "500": {
+                        "description": "Internal error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Gadget"
+                ],
+                "summary": "Update a gadget",
+                "operationId": "88f24f83a2faae6d0438ef130c5ef0b1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of gadget to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "example of the body request",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "grapplin"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Gadget updated"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "404": {
+                        "description": "Gadget not found"
+                    },
+                    "500": {
+                        "description": "Internal error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Gadget"
+                ],
+                "summary": "Delete a gadget",
+                "operationId": "40ac3184f1c39ab34b4e0cc0ddef9009",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of gadget to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Gadget deleted"
+                    },
+                    "404": {
+                        "description": "Gadget not found"
+                    },
+                    "500": {
+                        "description": "Internal error"
+                    }
+                }
+            }
+        },
         "/api/getgroup": {
             "get": {
                 "tags": [
@@ -497,10 +606,6 @@
                                     "description": {
                                         "type": "string",
                                         "example": "guezz"
-                                    },
-                                    "userId": {
-                                        "type": "integer",
-                                        "example": "1"
                                     }
                                 },
                                 "type": "object"
@@ -980,6 +1085,15 @@
                         "name": "name",
                         "in": "query",
                         "description": "Name of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "firstname",
+                        "in": "query",
+                        "description": "Firstname of the user",
                         "required": true,
                         "schema": {
                             "type": "string"

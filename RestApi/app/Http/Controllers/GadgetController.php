@@ -111,6 +111,182 @@ class GadgetController extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *  path="/api/gadget/{id}",
+     * summary="Update a gadget",
+     * tags={"Gadget"},
+     * @OA\Parameter(
+     * description="ID of gadget to update",
+     * in="path",
+     * name="id",
+     * required=true,
+     * @OA\Schema(
+     * type="integer"
+     * )
+     * ),
+     * @OA\RequestBody(
+     * required=false,
+     * description="example of the body request",
+     * @OA\JsonContent(
+     * @OA\Property(property="name", type="string", example="grapplin"),
+     * )
+     * ),
+     * @OA\Response(
+     * response=200,
+     * description="Gadget updated"
+     * ),
+     * @OA\Response(
+     * response=400,
+     * description="Invalid input"
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="Gadget not found"
+     * ),
+     * @OA\Response(
+     * response=500,
+     * description="Internal error"
+     * )
+     * )
+     * 
+     */
+
+    public function updateGadgetById(Request $request, $id)
+    {
+        $name = $request->input("name");
+
+        if ($this->isValid($name)) {
+            $existingGadget = DB::table('gadgets')->where('id', $id)->first();
+
+            if ($existingGadget) {
+                $update = DB::table('gadgets')->where('id', $id)->update(['name' => $name]);
+
+                if ($update) {
+                    return response()->json([
+                        'code' => '200',
+                        'msg' => 'Gadget updated'
+                    ]);
+                } else {
+                    return response()->json([
+                        'code' => '500',
+                        'error' => 'Internal error'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'code' => '404',
+                    'error' => 'Gadget not found'
+                ]);
+            }
+        } else {
+            return response()->json([
+                'code' => '400',
+                'error' => 'Invalid name provided'
+            ]);
+        }
+    }
+
+    /**
+     * @OA\Delete(
+     *  path="/api/gadget/{id}",
+     * summary="Delete a gadget",
+     * tags={"Gadget"},
+     * @OA\Parameter(
+     * description="ID of gadget to delete",
+     * in="path",
+     * name="id",
+     * required=true,
+     * @OA\Schema(
+     * type="integer"
+     * )
+     * ),
+     * @OA\Response(
+     * response=200,
+     * description="Gadget deleted"
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="Gadget not found"
+     * ),
+     * @OA\Response(
+     * response=500,
+     * description="Internal error"
+     * )
+     * )
+     */
+
+    public function deleteGadgetById($id)
+    {
+        $gadget = DB::table('gadgets')->find($id);
+
+        if ($gadget) {
+            try {
+                DB::table('gadgets')->where('id', '=', $id)->delete();
+                return response()->json([
+                    'code' => '200',
+                    'msg' => 'Gadget deleted successfully'
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'code' => '500',
+                    'error' => 'Internal error'
+                ]);
+            }
+        } else {
+            return response()->json([
+                'code' => '404',
+                'error' => 'No gadget found'
+            ]);
+        }
+    }
+
+    /**
+     * @OA\Get(
+     *  path="/api/gadget/{id}",
+     * summary="Get a gadget by ID",
+     * tags={"Gadget"},
+     * @OA\Parameter(
+     * description="ID of gadget to return",
+     * in="path",
+     * name="id",
+     * required=true,
+     * @OA\Schema(
+     * type="integer"
+     * )
+     * ),
+     * @OA\Response(
+     * response=200,
+     * description="Gadget found"
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="Gadget not found"
+     * ),
+     * @OA\Response(
+     * response=500,
+     * description="Internal error"
+     * )
+     * )
+     */
+
+    public function getGadgetById($id)
+    {
+        $gadget = DB::table('gadgets')->find($id);
+
+        if ($gadget) {
+            return response()->json([
+                'code' => '200',
+                'data' => $gadget
+            ]);
+        } else {
+            return response()->json([
+                'code' => '404',
+                'error' => 'No gadget found'
+            ]);
+        }
+    }
+
     private function isValid($input)
     {
         // Vérification du nom ici
