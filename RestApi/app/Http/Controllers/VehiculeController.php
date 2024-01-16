@@ -139,12 +139,227 @@ class VehiculeController extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *   path="/api/updatevehicule/{id}",
+     *  summary="Update a vehicule by id",
+     * tags={"Vehicule"},
+     * @OA\Parameter(
+     *  name="id",
+     * description="Vehicule id",
+     * required=true,
+     * in="path",
+     * @OA\Schema(
+     * type="integer"
+     * )
+     * ),
+     * @OA\Parameter(
+     *  name="name",
+     * description="Vehicule name",
+     * required=true,
+     * in="query",
+     * @OA\Schema(
+     * type="string"
+     * )
+     * ),
+     * @OA\RequestBody(
+     *   required=true,
+     * @OA\JsonContent(
+     * @OA\Property(property="name", type="string", example="Plane"),
+     * )
+     * ),
+     * @OA\Response(
+     * response=200,
+     * description="Vehicule updated",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example=200),
+     * @OA\Property(property="msg", type="string", example="Vehicule updated"),
+     * )
+     * ),
+     * @OA\Response(
+     * response=400,
+     * description="Invalid name provided",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example=400),
+     * @OA\Property(property="error", type="string", example="Invalid name provided"),
+     * )
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="Vehicule not found",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example=404),
+     * @OA\Property(property="error", type="string", example="Vehicule not found"),
+     * )
+     * ),
+     * @OA\Response(
+     * response=500,
+     * description="Internal error",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example=500),
+     * @OA\Property(property="error", type="string", example="Internal error"),
+     * )
+     * )
+     * )
+     * 
+     */
+
+    public function updateVehiculeById(Request $request, $id)
+    {
+        $name = $request->input("name");
+
+        if ($this->isValid($name)) {
+            $existingVehicule = DB::table('vehicles')->where('id', $id)->first();
+
+            if (!$existingVehicule) {
+                return response()->json([
+                    'code' => '404',
+                    'error' => 'Vehicule not found'
+                ]);
+            }
+
+            $update = DB::table('vehicles')->where('id', $id)->update(['name' => $name]);
+
+            if ($update) {
+                return response()->json([
+                    'code' => '200',
+                    'msg' => 'Vehicule updated'
+                ]);
+            } else {
+                return response()->json([
+                    'code' => '500',
+                    'error' => 'Internal error'
+                ]);
+            }
+        } else {
+            return response()->json([
+                'code' => '400',
+                'error' => 'Invalid name provided'
+            ]);
+        }
+    }
+
+    /**
+     * @OA\Delete(
+     *   path="/api/deletevehicule/{id}",
+     *  summary="Delete a vehicule by id",
+     * tags={"Vehicule"},
+     * @OA\Parameter(
+     *  name="id",
+     * description="Vehicule id",
+     * required=true,
+     * in="path",
+     * @OA\Schema(
+     * type="integer"
+     * )
+     * ),
+     * @OA\Response(
+     * response=200,
+     * description="Vehicule deleted",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example=200),
+     * @OA\Property(property="msg", type="string", example="Vehicule deleted"),
+     * )
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="Vehicule not found",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example=404),
+     * @OA\Property(property="error", type="string", example="Vehicule not found"),
+     * )
+     * ),
+     * @OA\Response(
+     * response=500,
+     * description="Internal error",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example=500),
+     * @OA\Property(property="error", type="string", example="Internal error"),
+     * )
+     * )
+     * )
+     * 
+     */
+
+    public function deleteVehiculeById($id)
+    {
+        $existingVehicule = DB::table('vehicles')->where('id', $id)->first();
+
+        if ($existingVehicule) {
+            $delete = DB::table('vehicles')->where('id', $id)->delete();
+
+            if ($delete) {
+                return response()->json([
+                    'code' => '200',
+                    'msg' => 'Vehicule deleted'
+                ]);
+            } else {
+                return response()->json([
+                    'code' => '500',
+                    'error' => 'Internal error'
+                ]);
+            }
+        } else {
+            return response()->json([
+                'code' => '404',
+                'error' => 'Vehicule not found'
+            ]);
+        }
+    }
+
+    /**
+     * @OA\Get(
+     *   path="/api/getvehicule/{id}",
+     *  summary="Get a vehicule by id",
+     * tags={"Vehicule"},
+     * @OA\Parameter(
+     *  name="id",
+     * description="Vehicule id",
+     * required=true,
+     * in="path",
+     * @OA\Schema(
+     * type="integer"
+     * )
+     * ),
+     * @OA\Response(
+     * response=200,
+     * description="Vehicule found",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example=200),
+     * @OA\Property(property="data", type="string", example="Vehicule1"),
+     * )
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="Vehicule not found",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example=404),
+     * @OA\Property(property="error", type="string", example="Vehicule not found"),
+     * )
+     * )
+     * )
+     * 
+     */
+
+    public function getVehiculeById($id)
+    {
+        $existingVehicule = DB::table('vehicles')->where('id', $id)->first();
+
+        if ($existingVehicule) {
+            return response()->json([
+                'code' => '200',
+                'data' => $existingVehicule
+            ]);
+        } else {
+            return response()->json([
+                'code' => '404',
+                'error' => 'Vehicule not found'
+            ]);
+        }
+    }
+
     private function isValid($input)
     {
-        // Vérification du nom ici
-        // Vous pouvez ajouter votre logique de validation pour le nom
-        // Par exemple, vérifier la longueur, les caractères autorisés, etc.
-        // Pour cet exemple, supposons que le nom doit avoir au moins 3 caractères
         return strlen($input) > 0;
     }
 
