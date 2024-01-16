@@ -29,7 +29,7 @@ return new class extends Migration
             'firstname' => 'admin',
             'email' => 'admin@gm.com',
             'email_verified' => true,
-            'password' => '$2y'
+            'password' => hash('sha256', '$2y'),
         ]);
     }
 

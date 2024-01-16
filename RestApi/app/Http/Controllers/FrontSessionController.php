@@ -36,7 +36,7 @@ class FrontSessionController extends Controller
             return response()->json([
                 'code' => '200',
                 'message' => 'Token created',
-                'auth token : ' => $token
+                'auth token' => $token
             ]);
         } else {
             return response()->json([
