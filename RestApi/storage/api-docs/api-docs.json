@@ -1280,6 +1280,10 @@
                                         "type": "string",
                                         "example": "banos"
                                     },
+                                    "firstname": {
+                                        "type": "string",
+                                        "example": "lose"
+                                    },
                                     "email": {
                                         "type": "string",
                                         "example": "b@.Fr"
