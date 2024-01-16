@@ -18,6 +18,11 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('superhero_id')->references('id')->on('superheroes');
         });
+
+        DB::table('user_superhero')->insert([
+            'user_id' => '1',
+            'superhero_id' => '1',
+        ]);
     }
 
     /**
