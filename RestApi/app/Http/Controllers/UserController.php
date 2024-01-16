@@ -196,6 +196,7 @@ class UserController extends Controller
      * @OA\JsonContent(
      * 
      * @OA\Property(property="name", type="string", example="banos"),
+     * @OA\Property(property="firstname", type="string", example="lose"),
      * @OA\Property(property="email", type="string", example="b@.Fr"),
      * @OA\Property(property="password", type="string", example="flodagnas54"),
      * @OA\Property(property="remember_token", type="string", example=""),

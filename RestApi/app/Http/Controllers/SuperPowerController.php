@@ -106,4 +106,197 @@ class SuperPowerController extends Controller
             ]);
         }
     }
+
+    /**
+     * @OA\Put(
+     * path="/api/superpower/{id}",
+     * summary="Update a superpower",
+     * tags={"SuperPower"},
+     * @OA\Parameter(
+     *      name="id",
+     *      description="SuperPower id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *           type="integer",
+     *           format="int64"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *  name="name",
+     * in="query",
+     * required=true,
+     * @OA\Schema(
+     * type="string"
+     * )
+     * ),
+     * @OA\RequestBody(
+     *  required=false,
+     * description="example of the body request",
+     * @OA\JsonContent(
+     * @OA\Property(property="name", type="string", example="SuperSpeed"),
+     * )
+     * ),
+     * @OA\Response(
+     * response=200,
+     * description="SuperPower updated successfully"
+     * ),
+     * @OA\Response(
+     * response=400,
+     * description="Invalid name supplied"
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="SuperPower not found"
+     * ),
+     * @OA\Response(
+     * response=500,
+     * description="Internal error"
+     * )
+     * )
+     * )
+     * 
+     * 
+     */
+
+    public function updateSuperPowerById(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+        ]);
+
+        try {
+            $superpower = DB::table('superpowers')->where('id', $id)->first();
+            if ($superpower) {
+                DB::table('superpowers')->where('id', $id)->update($validatedData);
+                return response()->json([
+                    'code' => '200',
+                    'msg' => 'SuperPower updated successfully'
+                ]);
+            } else {
+                return response()->json([
+                    'code' => '404',
+                    'error' => 'SuperPower not found'
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'code' => '500',
+                'error' => 'Internal error',
+            ]);
+        }
+    }
+
+    /**
+     * @OA\Delete(
+     * path="/api/superpower/{id}",
+     * summary="Delete a superpower",
+     * tags={"SuperPower"},
+     * @OA\Parameter(
+     *      name="id",
+     *      description="SuperPower id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *           type="integer",
+     *           format="int64"
+     *      )
+     * ),
+     * 
+     * @OA\Response(
+     * response=200,
+     * description="SuperPower deleted successfully"
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="SuperPower not found"
+     * ),
+     * @OA\Response(
+     * response=500,
+     * description="Internal error"
+     * )
+     * )
+     * )
+     * 
+     * 
+     */
+    public function deleteSuperPowerById($id)
+    {
+        try {
+            $superpower = DB::table('superpowers')->where('id', $id)->first();
+            if ($superpower) {
+                DB::table('superpowers')->where('id', $id)->delete();
+                return response()->json([
+                    'code' => '200',
+                    'msg' => 'SuperPower deleted successfully'
+                ]);
+            } else {
+                return response()->json([
+                    'code' => '404',
+                    'error' => 'SuperPower not found'
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'code' => '500',
+                'error' => 'Internal error',
+            ]);
+        }
+    }
+
+    /**
+     * @OA\Get(
+     * path="/api/superpower/{id}",
+     * summary="Get a superpower by id",
+     * tags={"SuperPower"},
+     * @OA\Parameter(
+     *      name="id",
+     *      description="SuperPower id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *           type="integer",
+     *           format="int64"
+     *      )
+     * ),
+     * 
+     * @OA\Response(
+     * response=200,
+     * description="A superpower",
+     * @OA\JsonContent()
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="SuperPower not found",
+     * @OA\JsonContent()
+     *  )
+     * )
+     * )
+     * 
+     * 
+     */
+
+    public function getSuperPowerById($id)
+    {
+        try {
+            $superpower = DB::table('superpowers')->where('id', $id)->first();
+            if ($superpower) {
+                return response()->json([
+                    'code' => '200',
+                    'data' => $superpower
+                ]);
+            } else {
+                return response()->json([
+                    'code' => '404',
+                    'error' => 'SuperPower not found'
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'code' => '500',
+                'error' => 'Internal error',
+            ]);
+        }
+    }
+
 }

@@ -84,8 +84,11 @@ Route::get('gadget/{id}',[GadgetController::class , 'getGadgetById']);
 
 
 // SuperPower
-Route::get('getsuperpower',[SuperPowerController::class , 'getSuperPower']);
-Route::post('createsuperpower',[SuperPowerController::class , 'createSuperPower']);
+Route::get('superpowers',[SuperPowerController::class , 'getSuperPower']);
+Route::post('superpower',[SuperPowerController::class , 'createSuperPower']);
+Route::put('superpower/{id}',[SuperPowerController::class , 'updateSuperPowerById']);
+Route::delete('superpower/{id}',[SuperPowerController::class , 'deleteSuperPowerById']);
+Route::get('superpower/{id}',[SuperPowerController::class , 'getSuperPowerById']);
 
 
 // Join table 

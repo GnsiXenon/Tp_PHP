@@ -953,6 +953,133 @@
                 }
             }
         },
+        "/api/superpower/{id}": {
+            "get": {
+                "tags": [
+                    "SuperPower"
+                ],
+                "summary": "Get a superpower by id",
+                "operationId": "27684c44a07a1d114bff620cd4055a64",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "SuperPower id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A superpower",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "SuperPower not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SuperPower"
+                ],
+                "summary": "Update a superpower",
+                "operationId": "9b18c96366f44010c9976c14d773ec2a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "SuperPower id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "example of the body request",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "SuperSpeed"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "SuperPower updated successfully"
+                    },
+                    "400": {
+                        "description": "Invalid name supplied"
+                    },
+                    "404": {
+                        "description": "SuperPower not found"
+                    },
+                    "500": {
+                        "description": "Internal error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "SuperPower"
+                ],
+                "summary": "Delete a superpower",
+                "operationId": "6ce4331340997329725246ed0bb8de62",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "SuperPower id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SuperPower deleted successfully"
+                    },
+                    "404": {
+                        "description": "SuperPower not found"
+                    },
+                    "500": {
+                        "description": "Internal error"
+                    }
+                }
+            }
+        },
         "/api/getuser": {
             "get": {
                 "tags": [
@@ -1152,6 +1279,10 @@
                                     "name": {
                                         "type": "string",
                                         "example": "banos"
+                                    },
+                                    "firstname": {
+                                        "type": "string",
+                                        "example": "lose"
                                     },
                                     "email": {
                                         "type": "string",
