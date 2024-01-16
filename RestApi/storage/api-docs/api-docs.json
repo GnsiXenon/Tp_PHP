@@ -1207,68 +1207,6 @@
                 ],
                 "summary": "Create a user",
                 "operationId": "ba820f5ee59d44aecf828e317515bc95",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "Name of the user",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "firstname",
-                        "in": "query",
-                        "description": "Firstname of the user",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "description": "Email of the user",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "description": "Password of the user",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "remember_token",
-                        "in": "query",
-                        "description": "Remember token of the user",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "api_token",
-                        "in": "query",
-                        "description": "Api token of the user",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "avatar",
-                        "in": "query",
-                        "description": "Avatar of the user",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
                 "requestBody": {
                     "description": "example of the body request",
                     "required": false,
@@ -1282,7 +1220,7 @@
                                     },
                                     "firstname": {
                                         "type": "string",
-                                        "example": "lose"
+                                        "example": "florent"
                                     },
                                     "email": {
                                         "type": "string",
@@ -1291,18 +1229,6 @@
                                     "password": {
                                         "type": "string",
                                         "example": "flodagnas54"
-                                    },
-                                    "remember_token": {
-                                        "type": "string",
-                                        "example": ""
-                                    },
-                                    "api_token": {
-                                        "type": "string",
-                                        "example": ""
-                                    },
-                                    "avatar": {
-                                        "type": "string",
-                                        "example": ""
                                     }
                                 },
                                 "type": "object"
