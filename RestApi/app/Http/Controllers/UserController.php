@@ -99,10 +99,10 @@ class UserController extends Controller
 
     public function UserConnect(Request $request)
     {
-        //http://localhost:8000/api/connect?id=1&password=flodagnas54
+        //http://localhost:8000/api/connect?email=1&password=flodagnas54
         $password = $request->input("password");
-        $id = $request->input("id");
-        $user = DB::table('users')->where('id', $id)->first();
+        $id = $request->input("email");
+        $user = DB::table('users')->where('email', $email)->first();
         $passworduser = $user->password;
         $id = $user->id;
 
