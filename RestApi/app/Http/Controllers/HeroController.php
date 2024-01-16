@@ -79,7 +79,6 @@ class HeroController extends Controller
      * @OA\Property(property="hair_color", type="string", example="black"),
      * @OA\Property(property="origin_planet", type="string", example="guezzland"),
      * @OA\Property(property="description", type="string", example="guezz"),
-     * @OA\Property(property="userId", type="integer", example="1"),
      * 
      * 
      * )

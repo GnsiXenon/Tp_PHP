@@ -73,8 +73,11 @@ Route::get('vehicule/{id}',[VehiculeController::class , 'getVehiculeById']);
 //Vehicule --> create a Vehicule / update a Vehicule by id / delete a Vehicule by id  / get a Vehicule by id
 
 // Gadget
-Route::get('getgadget',[GadgetController::class , 'getGadget']);
-Route::post('creategadget',[GadgetController::class , 'createGadget']);
+Route::get('gadgets',[GadgetController::class , 'getGadget']);
+Route::post('gadget',[GadgetController::class , 'createGadget']);
+Route::put('gadget/{id}',[GadgetController::class , 'updateGadgetById']);
+Route::delete('gadget/{id}',[GadgetController::class , 'deleteGadgetById']);
+Route::get('gadget/{id}',[GadgetController::class , 'getGadgetById']);
 
 //Gadgets --> get all gadgets
 
