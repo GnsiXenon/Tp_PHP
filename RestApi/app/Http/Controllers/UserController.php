@@ -126,82 +126,15 @@ class UserController extends Controller
      *  path="/api/createuser",
      * summary="Create a user",
      * tags={"User"},
-     * @OA\Parameter(
-     * description="Name of the user",
-     * in="query",
-     * name="name",
-     * required=true,
-     * @OA\Schema(
-     * type="string"
-     * )
-     * ),
-     * @OA\Parameter(
-     * description="Firstname of the user",
-     * in="query",
-     * name="firstname",
-     * required=true,
-     * @OA\Schema(
-     * type="string"
-     * )
-     * ),
-     * @OA\Parameter(
-     * description="Email of the user",
-     * in="query",
-     * name="email",
-     * required=true,
-     * @OA\Schema(
-     * type="string"
-     * )
-     * ),
-     * @OA\Parameter(
-     * description="Password of the user",
-     * in="query",
-     * name="password",
-     * required=true,
-     * @OA\Schema(
-     * type="string"
-     * )
-     * ),
-     * @OA\Parameter(
-     * description="Remember token of the user",
-     * in="query",
-     * name="remember_token",
-     *  
-     * @OA\Schema(
-     * type="string"
-     * )
-     * ),
-     * @OA\Parameter(
-     * description="Api token of the user",
-     * in="query",
-     * name="api_token",
      * 
-     * @OA\Schema(
-     * type="string"
-     * )
-     * ),
-     * @OA\Parameter(
-     * description="Avatar of the user",
-     * in="query",
-     * name="avatar",
-     *  
-     * @OA\Schema(
-     * type="string"
-     * )
-     * ),
      * @OA\RequestBody(
      * required=false,
      * description="example of the body request",
-     * 
      * @OA\JsonContent(
-     * 
      * @OA\Property(property="name", type="string", example="banos"),
-     * @OA\Property(property="firstname", type="string", example="lose"),
+     * @OA\Property(property="firstname", type="string", example="florent"),
      * @OA\Property(property="email", type="string", example="b@.Fr"),
      * @OA\Property(property="password", type="string", example="flodagnas54"),
-     * @OA\Property(property="remember_token", type="string", example=""),
-     * @OA\Property(property="api_token", type="string", example=""),
-     * @OA\Property(property="avatar", type="string", example=""),
      * 
      * )
      * ),
@@ -229,8 +162,7 @@ class UserController extends Controller
 
     public function createUser(Request $request)
     {
-        //http://localhost:8000/api/createuser?name=banos&email=banoslose@gmail.com&password=flodagnas54
-        $validatedData = $request->validate([
+       $validatedData = $request->validate([
             'name' => 'required|string',
             'firstname' => 'required|string',
             'email' => 'required|string',
@@ -255,6 +187,7 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'code' => '500',
+                'msg' => $e,
                 'error' => 'Internal error',
             ]);
         }
