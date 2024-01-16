@@ -14,6 +14,7 @@ use App\Http\Controllers\GadgetController;
 use App\Http\Controllers\SuperPowerController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\FrontSessionController;
 
 // return all the routes possible
 
@@ -74,3 +75,11 @@ Route::get('getgadgethero',[GadgetHeroController::class , 'getGadgetHero']);
 Route::post('addgrouphero',[GroupHeroController::class , 'addGroupHero']);
 Route::delete('deletegrouphero',[GroupHeroController::class , 'deleteGroupHero']);
 Route::get('getgrouphero',[GroupHeroController::class , 'getGroupHero']);
+
+
+// Create a front end session
+Route::get('createFrontSession',[FrontSessionController::class , 'createSession']);
+
+Route::middleware('auth')->group(function () {
+    
+});
