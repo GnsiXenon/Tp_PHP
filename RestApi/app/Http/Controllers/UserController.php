@@ -101,7 +101,7 @@ class UserController extends Controller
     {
         //http://localhost:8000/api/connect?email=1&password=flodagnas54
         $password = $request->input("password");
-        $id = $request->input("email");
+        $email = $request->input("email");
         $user = DB::table('users')->where('email', $email)->first();
         $passworduser = $user->password;
         $id = $user->id;

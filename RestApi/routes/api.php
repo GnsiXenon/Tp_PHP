@@ -37,12 +37,12 @@ Route::get('hero/{id}',[HeroController::class , 'getHeroById']);
 
 // User
 Route::get ('getuser',[UserController::class , 'getUser']);
-Route::get('connect',[UserController::class , 'UserConnect']);
+Route::post('connect',[UserController::class , 'UserConnect']);
 Route::post('createuser',[UserController::class , 'createUser']);
 Route::get('checkSession',[UserController::class , 'CheckSession']);
 
 // City 
-Route::get('cities',[CityController::class , 'getcity']);
+
 Route::post('city',[CityController::class , 'createCity']);
 Route::put('city/{id}',[CityController::class , 'updateCityById']);
 Route::delete('city/{id}',[CityController::class , 'deleteCityById']);
@@ -115,5 +115,5 @@ Route::get('getgrouphero',[GroupHeroController::class , 'getGroupHero']);
 Route::get('createFrontSession',[FrontSessionController::class , 'createSession']);
 
 Route::middleware('auth')->group(function () {
-    
+    Route::get('cities',[CityController::class , 'getcity']);
 });
