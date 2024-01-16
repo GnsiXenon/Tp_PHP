@@ -17,6 +17,17 @@ return new class extends Migration
         $table->foreign('superhero_id')->references('id')->on('superheroes');
         $table->foreign('city_id')->references('id')->on('cities');
     });
+
+    DB::table('superhero_city')->insert([
+       [ 'superhero_id' => '1',
+        'city_id' => '5',],
+         [ 'superhero_id' => '1',
+        'city_id' => '2',],
+         [ 'superhero_id' => '1',
+        'city_id' => '3',],
+         [ 'superhero_id' => '1',
+        'city_id' => '4',],
+    ]);
     }
 
     /**
