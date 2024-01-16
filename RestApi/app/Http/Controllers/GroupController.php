@@ -112,12 +112,187 @@ class GroupController extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *   path="/api/group/{id}",
+     *  summary="Update a group",
+     * tags={"Group"},
+     * @OA\Parameter(
+     *   description="ID of the group",
+     *  in="path",
+     * name="id",
+     * required=true,
+     * @OA\Schema(
+     * type="integer"
+     * )
+     * ),
+     * @OA\Parameter(
+     *   description="Name of the group",
+     *  in="query",
+     * name="name",
+     * required=true,
+     * @OA\Schema(
+     * type="string"
+     * )
+     * ),
+     * @OA\RequestBody(
+     *   required=false,
+     * description="example of the body request",
+     *
+     *  @OA\JsonContent(
+     * 
+     * @OA\Property(property="name", type="string", example="Avengers"),
+     * 
+     * 
+     * )
+     * ),
+     * @OA\Response(
+     * response=200,
+     * description="Group updated"
+     * ),
+     * @OA\Response(
+     * response=400,
+     * description="Invalid input"
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="Group not found"
+     * )
+     * )
+     */
+
+    public function updateGroupById(Request $request, $id)
+    {
+        $name = $request->input("name");
+
+        if ($this->isValid($name)) {
+            $existinggroup = DB::table('groups')->where('id', $id)->first();
+
+            if ($existinggroup) {
+                $update = DB::table('groups')->where('id', $id)->update(['name' => $name]);
+
+                if ($update) {
+                    return response()->json([
+                        'code' => '200',
+                        'msg' => 'Group updated successufuly'
+                    ]);
+                } else {
+                    return response()->json([
+                        'code' => '500',
+                        'error' => 'Internal error'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'code' => '404',
+                    'error' => 'Group not found'
+                ]);
+            }
+        } else {
+            return response()->json([
+                'code' => '400',
+                'error' => 'Invalid name provided'
+            ]);
+        }
+    }
+
+    /**
+     * @OA\Delete(
+     *   path="/api/group/{id}",
+     *  summary="Delete a group",
+     * tags={"Group"},
+     * @OA\Parameter(
+     *   description="ID of the group",
+     *  in="path",
+     * name="id",
+     * required=true,
+     * @OA\Schema(
+     * type="integer"
+     * )
+     * ),
+     * @OA\Response(
+     * response=200,
+     * description="Group deleted"
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="Group not found"
+     * )
+     * )
+     */
+
+    public function deleteGroupById($id)
+    {
+        $existinggroup = DB::table('groups')->where('id', $id)->first();
+
+        if ($existinggroup) {
+            $delete = DB::table('groups')->where('id', $id)->delete();
+
+            if ($delete) {
+                return response()->json([
+                    'code' => '200',
+                    'msg' => 'Group deleted successufuly'
+                ]);
+            } else {
+                return response()->json([
+                    'code' => '500',
+                    'error' => 'Internal error'
+                ]);
+            }
+        } else {
+            return response()->json([
+                'code' => '404',
+                'error' => 'Group not found'
+            ]);
+        }
+    }
+
+    /**
+     * @OA\Get(
+     *   path="/api/group/{id}",
+     *  summary="Get a group by id",
+     * tags={"Group"},
+     * @OA\Parameter(
+     *   description="ID of the group",
+     *  in="path",
+     * name="id",
+     * required=true,
+     * @OA\Schema(
+     * type="integer"
+     * )
+     * ),
+     * @OA\Response(
+     * response=200,
+     * description="Group found"
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="Group not found"
+     * )
+     * )
+     */
+
+    public function getGroupById($id)
+    {
+        $existinggroup = DB::table('groups')->where('id', $id)->first();
+
+        if ($existinggroup) {
+            return response()->json([
+                'code' => '200',
+                'data' => $existinggroup
+            ]);
+        } else {
+            return response()->json([
+                'code' => '404',
+                'error' => 'Group not found'
+            ]);
+        }
+    }
+
+    
+
     private function isValid($input)
     {
-        // Vérification du nom ici
-        // Vous pouvez ajouter votre logique de validation pour le nom
-        // Par exemple, vérifier la longueur, les caractères autorisés, etc.
-        // Pour cet exemple, supposons que le nom doit avoir au moins 3 caractères
         return strlen($input) > 0;
     }
 

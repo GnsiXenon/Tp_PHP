@@ -7,7 +7,33 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-   
+ 
+    /**
+     * @OA\Get(
+     * path="/api/getuser",
+     * summary="Get all users",
+     * tags={"User"},
+     * @OA\Response(
+     * response=200,
+     * description="User found",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example="200"),
+     *  
+     * )
+     * ),
+     * @OA\Response(
+     * response=404,
+     *  
+     * description="No user found",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example="404"),
+     * @OA\Property(property="error", type="string", example="No user found"),
+     * )
+     * )
+     * )
+     * )
+     */
+
     public function getUser()
     {
         $users = DB::table('users')->get(['name' , 'email' , 'avatar']);
@@ -24,6 +50,53 @@ class UserController extends Controller
             ]);
         }
     }
+    /**
+     * @OA\Post(
+     * path="/api/connect",
+     * summary="Connect a user",
+     * tags={"User"},
+     * @OA\Parameter(
+     * description="Password of the user",
+     * in="query",
+     * name="password",
+     * 
+     * @OA\Schema(
+     * type="string"
+     * )
+     * ),
+     * @OA\Parameter(
+     * description="Id of the user",
+     * in="query",
+     * name="id",
+     * 
+     * @OA\Schema(
+     * type="integer"
+     * )
+     * ),
+     * @OA\Response(
+     * response=200,
+     * description="Password matched",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example="200"),
+     * @OA\Property(property="message", type="string", example="Password matched"),
+     * @OA\Property(property="cookie", type="string", example=""),
+     * )
+     * ),
+     * @OA\Response(
+     * response=401,
+     * description="Password mismatch",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example="401"),
+     * @OA\Property(property="message", type="string", example="Password mismatch"),
+     * )
+     * )
+     * )
+     * )
+     *  
+     * 
+     */
+
+
     public function UserConnect(Request $request)
     {
         //http://localhost:8000/api/connect?id=1&password=flodagnas54
@@ -47,6 +120,102 @@ class UserController extends Controller
             ]);
         }
     }
+
+    /**
+     * @OA\Post(
+     *  path="/api/createuser",
+     * summary="Create a user",
+     * tags={"User"},
+     * @OA\Parameter(
+     * description="Name of the user",
+     * in="query",
+     * name="name",
+     * required=true,
+     * @OA\Schema(
+     * type="string"
+     * )
+     * ),
+     * @OA\Parameter(
+     * description="Email of the user",
+     * in="query",
+     * name="email",
+     * required=true,
+     * @OA\Schema(
+     * type="string"
+     * )
+     * ),
+     * @OA\Parameter(
+     * description="Password of the user",
+     * in="query",
+     * name="password",
+     * required=true,
+     * @OA\Schema(
+     * type="string"
+     * )
+     * ),
+     * @OA\Parameter(
+     * description="Remember token of the user",
+     * in="query",
+     * name="remember_token",
+     *  
+     * @OA\Schema(
+     * type="string"
+     * )
+     * ),
+     * @OA\Parameter(
+     * description="Api token of the user",
+     * in="query",
+     * name="api_token",
+     * 
+     * @OA\Schema(
+     * type="string"
+     * )
+     * ),
+     * @OA\Parameter(
+     * description="Avatar of the user",
+     * in="query",
+     * name="avatar",
+     *  
+     * @OA\Schema(
+     * type="string"
+     * )
+     * ),
+     * @OA\RequestBody(
+     * required=false,
+     * description="example of the body request",
+     * 
+     * @OA\JsonContent(
+     * 
+     * @OA\Property(property="name", type="string", example="banos"),
+     * @OA\Property(property="email", type="string", example="b@.Fr"),
+     * @OA\Property(property="password", type="string", example="flodagnas54"),
+     * @OA\Property(property="remember_token", type="string", example=""),
+     * @OA\Property(property="api_token", type="string", example=""),
+     * @OA\Property(property="avatar", type="string", example=""),
+     * 
+     * )
+     * ),
+     * @OA\Response(
+     * response=201,
+     * description="User created successfully",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example="201"),
+     * @OA\Property(property="msg", type="string", example="User created successfully"),
+     * )
+     * ),
+     * @OA\Response(
+     * response=500,
+     * description="Internal error",
+     * @OA\JsonContent(
+     * @OA\Property(property="code", type="integer", example="500"),
+     * @OA\Property(property="error", type="string", example="Internal error"),
+     * )
+     * )
+     * )
+     * )
+     *  
+     * 
+     */
 
     public function createUser(Request $request)
     {
@@ -79,6 +248,9 @@ class UserController extends Controller
             ]);
         }
     }
+
+
+
      //We create a session
      private function createSession($user_id)
      {
@@ -96,6 +268,43 @@ class UserController extends Controller
          DB::table('session')->insert($validatedData);
          return $cookie;
      }
+
+     /**
+      * @OA\Get(
+        *  path="/api/checkSession",
+        * summary="Check if the session is valid",
+        * tags={"User"},
+        * @OA\Parameter(
+        * description="Cookie of the session",
+        * in="query",
+        * name="cookie",
+        * required=true,
+        * @OA\Schema(
+        * type="string"
+        * )
+        * ),
+        * @OA\Response(
+        * response=201,
+        * description="Session valid",
+        * @OA\JsonContent(
+        * @OA\Property(property="code", type="integer", example="201"),
+        * @OA\Property(property="msg", type="string", example="Session valid"),
+        * @OA\Property(property="user_id", type="integer", example="1"),
+        * )
+        * ),
+        * @OA\Response(
+        * response=400,
+        * description="Session not found",
+        * @OA\JsonContent(
+        * @OA\Property(property="code", type="integer", example="400"),
+        * @OA\Property(property="msg", type="string", example="Session not found"),
+        * )
+        * )
+        * )
+        * )
+        *
+      */
+
      public function CheckSession(Request $request)
      {
          //http://localhost:8000/api/checkSession?cookie=

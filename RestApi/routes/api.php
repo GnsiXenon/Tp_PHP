@@ -52,16 +52,22 @@ Route::get('city/{id}',[CityController::class , 'getCityById']);
 //city --> create a city / update a city by id / delete a city by id  / get a city by id
 
 // Group 
-Route::get('getgroup',[GroupController::class , 'getGroup']);
-Route::post('creategroup',[GroupController::class , 'createGroup']);
+Route::get('groups',[GroupController::class , 'getGroup']);
+Route::post('group',[GroupController::class , 'createGroup']);
+Route::put('group/{id}',[GroupController::class , 'updateGroupById']);
+Route::delete('group/{id}',[GroupController::class , 'deleteGroupById']);
+Route::get('group/{id}',[GroupController::class , 'getGroupById']);
 
 //groups --> get all groups
 //group --> create a group / update a group by id / delete a group by id  / get a group by id
 
 
 // Vehicule
-Route::get('getvehicule',[VehiculeController::class , 'getVehicule']);
-Route::post('createvehicule',[VehiculeController::class , 'createVehicule']);
+Route::get('vehicules',[VehiculeController::class , 'getVehicule']);
+Route::post('vehicule',[VehiculeController::class , 'createVehicule']);
+Route::put('vehicule/{id}',[VehiculeController::class , 'updateVehiculeById']);
+Route::delete('vehicule/{id}',[VehiculeController::class , 'deleteVehiculeById']);
+Route::get('vehicule/{id}',[VehiculeController::class , 'getVehiculeById']);
 
 //Vehicules --> get all Vehicules
 //Vehicule --> create a Vehicule / update a Vehicule by id / delete a Vehicule by id  / get a Vehicule by id
