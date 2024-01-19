@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('session', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->index();
-            $table->text('cookie')->nullable();
+            $table->text('api-token')->nullable();
             $table->timestamp('expire_date')->nullable();
             $table->timestamp('create_date')->nullable();
         });

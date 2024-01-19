@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\cities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ApiController;
 
 class CityController extends Controller
 {
@@ -22,6 +23,13 @@ class CityController extends Controller
 
     public function getCity()
     {
+            //appel de la fonction readHeaderCookie dans le controller ApiController
+       if ((new ApiController)->readHeaderCookie()[0] == false) {
+        return response()->json([
+            'code' => (new ApiController)->readHeaderCookie()[1],
+            'error' => (new ApiController)->readHeaderCookie()[2]
+        ]);
+    }
         $cities = DB::table('cities')->get(['name']);
 
         if ($cities->isEmpty()) {
@@ -65,6 +73,15 @@ class CityController extends Controller
 
     public function getCityById($id)
     {
+
+       //appel de la fonction readHeaderCookie dans le controller ApiController
+       if ((new ApiController)->readHeaderCookie()[0] == false) {
+        return response()->json([
+            'code' => (new ApiController)->readHeaderCookie()[1],
+            'error' => (new ApiController)->readHeaderCookie()[2]
+        ]);
+    }
+            
         $city = DB::table('cities')->find($id);
 
         if ($city) {
@@ -116,6 +133,13 @@ class CityController extends Controller
 
     public function createCity(Request $request)
     {
+            //appel de la fonction readHeaderCookie dans le controller ApiController
+       if ((new ApiController)->readHeaderCookie()[0] == false) {
+        return response()->json([
+            'code' => (new ApiController)->readHeaderCookie()[1],
+            'error' => (new ApiController)->readHeaderCookie()[2]
+        ]);
+    }
     $name = $request->input("name");
 
     // Vérification si le nom est correct
@@ -195,6 +219,13 @@ class CityController extends Controller
 
     public function updateCityById(Request $request, $id)
     {
+            //appel de la fonction readHeaderCookie dans le controller ApiController
+       if ((new ApiController)->readHeaderCookie()[0] == false) {
+        return response()->json([
+            'code' => (new ApiController)->readHeaderCookie()[1],
+            'error' => (new ApiController)->readHeaderCookie()[2]
+        ]);
+    }
         // Payload Json
     $payload = json_decode(request()->getContent(), true);
     //recuperer le hero
@@ -256,6 +287,13 @@ class CityController extends Controller
 
 public function deleteCityById($id)
 {
+        //appel de la fonction readHeaderCookie dans le controller ApiController
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
     $city = DB::table('cities')->find($id);
 
     if ($city) {

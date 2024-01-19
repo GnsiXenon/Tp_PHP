@@ -9,6 +9,12 @@ class CityHeroController extends Controller
 {
     public function addCityHero(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $validatedData = $request->validate([
             'superhero_id' => 'required',
             'city_id' => 'required',
@@ -73,6 +79,12 @@ class CityHeroController extends Controller
 
     public function deleteCityHero(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $validatedData = $request->validate([
             'superhero_id' => 'required',
             'city_id' => 'required',
@@ -113,6 +125,12 @@ class CityHeroController extends Controller
 
     public function getCityHero(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $validatedData = $request->validate([
             'superhero_id' => 'required',
         ]);

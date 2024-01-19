@@ -32,6 +32,12 @@ class VehiculeController extends Controller
      */
     public function getVehicule()
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $Vehicule = DB::table('vehicles')->get(['name']);
 
         if ($Vehicule->isEmpty()) {
@@ -105,6 +111,12 @@ class VehiculeController extends Controller
 
     public function createVehicule(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
     $name = $request->input("name");
 
     // Vérification si le nom est correct
@@ -206,6 +218,12 @@ class VehiculeController extends Controller
 
     public function updateVehiculeById(Request $request, $id)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $name = $request->input("name");
 
         if ($this->isValid($name)) {
@@ -283,6 +301,12 @@ class VehiculeController extends Controller
 
     public function deleteVehiculeById($id)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $existingVehicule = DB::table('vehicles')->where('id', $id)->first();
 
         if ($existingVehicule) {
@@ -343,6 +367,12 @@ class VehiculeController extends Controller
 
     public function getVehiculeById($id)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $existingVehicule = DB::table('vehicles')->where('id', $id)->first();
 
         if ($existingVehicule) {

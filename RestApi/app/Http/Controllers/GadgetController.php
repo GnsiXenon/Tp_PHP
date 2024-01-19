@@ -20,6 +20,12 @@ class GadgetController extends Controller
  */
     public function getGadget()
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $gadget = DB::table('gadgets')->get(['name']);
 
         if ($gadget->isEmpty()) {
@@ -77,6 +83,12 @@ class GadgetController extends Controller
 
     public function createGadget(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
     $name = $request->input("name");
 
     // Vérification si le nom est correct
@@ -154,6 +166,12 @@ class GadgetController extends Controller
 
     public function updateGadgetById(Request $request, $id)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $name = $request->input("name");
 
         if ($this->isValid($name)) {
@@ -218,6 +236,12 @@ class GadgetController extends Controller
 
     public function deleteGadgetById($id)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $gadget = DB::table('gadgets')->find($id);
 
         if ($gadget) {
@@ -272,6 +296,12 @@ class GadgetController extends Controller
 
     public function getGadgetById($id)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $gadget = DB::table('gadgets')->find($id);
 
         if ($gadget) {

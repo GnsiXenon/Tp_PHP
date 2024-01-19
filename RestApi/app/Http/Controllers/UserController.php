@@ -111,7 +111,7 @@ class UserController extends Controller
             return response()->json([
                 'code' => '200',
                 'message' => 'Password matched',
-                'cookie' => $cookie
+                'api_token' => $cookie
             ]);
         } else {
             return response()->json([
@@ -208,7 +208,7 @@ class UserController extends Controller
          $expireDate = now()->addDays(60);
          $validatedData['expire_date'] = $expireDate;
          $cookie = $this->createCookie(30);
-         $validatedData['cookie'] = $cookie;
+         $validatedData['api-token'] = $cookie;
          DB::table('session')->insert($validatedData);
          return $cookie;
      }
@@ -254,7 +254,7 @@ class UserController extends Controller
          //http://localhost:8000/api/checkSession?cookie=
         // We return the user id if the session is valid
          $cookie = $request->header("auth");
-         $session = DB::table('session')->where('cookie', '=', $cookie)->first();
+         $session = DB::table('session')->where('api-token', '=', $cookie)->first();
          if ($session) {
              $now = now();
              $expireDate = $session->expire_date;
@@ -293,5 +293,6 @@ class UserController extends Controller
          // We delete the session
          DB::table('session')->where('user_id', '=', $user_id)->delete();
 }
+
 
 }

@@ -21,6 +21,12 @@ class GroupController extends Controller
      */
     public function getGroup()
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $groups = DB::table('groups')->get(['name']);
 
         if ($groups->isEmpty()) {
@@ -78,6 +84,12 @@ class GroupController extends Controller
 
     public function createGroup(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
     $name = $request->input("name");
 
     // Vérification si le nom est correct
@@ -163,6 +175,12 @@ class GroupController extends Controller
 
     public function updateGroupById(Request $request, $id)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $name = $request->input("name");
 
         if ($this->isValid($name)) {
@@ -223,6 +241,12 @@ class GroupController extends Controller
 
     public function deleteGroupById($id)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $existinggroup = DB::table('groups')->where('id', $id)->first();
 
         if ($existinggroup) {
@@ -274,6 +298,12 @@ class GroupController extends Controller
 
     public function getGroupById($id)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $existinggroup = DB::table('groups')->where('id', $id)->first();
 
         if ($existinggroup) {

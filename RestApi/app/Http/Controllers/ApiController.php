@@ -39,4 +39,25 @@ public function getAllEndpoints()
     return $endpoints;
 }
 
+
+public function readHeaderCookie()
+{
+    $headers = apache_request_headers();
+
+    if (isset($headers['API_TOKEN'])) {
+        // API token is present in the header
+        // Check if the token is in the database
+        $token = DB::table('session')->where('api-token', $headers['API_TOKEN'])->first();
+        if ($token) {
+            // Return the user id
+            return [true , $token->user_id];
+        } else {
+            return [false ,'401','API token not authorized'];
+        }
+    } else {
+        // API token is not present in the header
+        return [false, '401','No API token found in the header'];
+}
+
+}
 }

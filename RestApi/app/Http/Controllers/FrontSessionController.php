@@ -42,7 +42,7 @@ class FrontSessionController extends Controller
             return response()->json([
                 'code' => '500',
                 'message' => 'Bad password',
-                'cookie' => $password
+                'api_token' => $password
             ]);
         }
     }

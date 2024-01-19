@@ -108,6 +108,15 @@ class HeroController extends Controller
 
     public function createHero(Request $request)
     {
+            //appel de la fonction readHeaderCookie dans le controller ApiController
+       if ((new ApiController)->readHeaderCookie()[0] == false) {
+        return response()->json([
+            'code' => (new ApiController)->readHeaderCookie()[1],
+            'error' => (new ApiController)->readHeaderCookie()[2]
+        ]);
+    }else{
+        $userId = (new ApiController)->readHeaderCookie()[1];
+    }
         // $userId = $request->input("userId");
         $validatedData = $request->validate([
             'name' => 'required|string',
@@ -127,12 +136,12 @@ class HeroController extends Controller
 
         try {
             DB::table('superheroes')->insert($validatedData);
-            $newId = DB::table('superheroes')->insertGetId($validatedData);
-            // $linkdata = [
-            //     'user_id' => $userId,
-            //     'superhero_id' => $newId
-            // ];
-            // DB::table('user_superhero')->insert($linkdata);
+            $newId = DB::getPdo()->lastInsertId();
+            $linkdata = [
+                'user_id' => $userId,
+                'superhero_id' => $newId
+            ];
+            DB::table('user_superhero')->insert($linkdata);
             return response()->json([
                 'code' => '201',
                 'msg' => 'Hero created successfully'

@@ -9,6 +9,12 @@ class GroupHeroController extends Controller
 {
     public function addGroupHero(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $validatedData = $request->validate([
             'superhero_id' => 'required',
             'group_id' => 'required',
@@ -73,6 +79,12 @@ class GroupHeroController extends Controller
 
     public function deleteGroupHero(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $validatedData = $request->validate([
             'superhero_id' => 'required',
             'group_id' => 'required',
@@ -113,6 +125,12 @@ class GroupHeroController extends Controller
 
     public function getGroupHero(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $validatedData = $request->validate([
             'superhero_id' => 'required',
         ]);

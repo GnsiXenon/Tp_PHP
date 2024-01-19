@@ -28,6 +28,12 @@ class SuperPowerController extends Controller
 
     public function getSuperPower()
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $superpowers = DB::table('superpowers')->get(['name']);
 
         if ($superpowers->isEmpty()) {
@@ -87,6 +93,12 @@ class SuperPowerController extends Controller
 
     public function createSuperPower(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         //http://localhost:8000/createhero?name=banos&secret_identity=esteban&gender=f&hair_color=black&origin_planet=guezzland&description=guezz&group_id=0&vehicle_id=0
         $validatedData = $request->validate([
             'name' => 'required|string',
@@ -161,6 +173,12 @@ class SuperPowerController extends Controller
 
     public function updateSuperPowerById(Request $request, $id)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $validatedData = $request->validate([
             'name' => 'required|string',
         ]);
@@ -222,6 +240,12 @@ class SuperPowerController extends Controller
      */
     public function deleteSuperPowerById($id)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         try {
             $superpower = DB::table('superpowers')->where('id', $id)->first();
             if ($superpower) {
@@ -278,6 +302,12 @@ class SuperPowerController extends Controller
 
     public function getSuperPowerById($id)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         try {
             $superpower = DB::table('superpowers')->where('id', $id)->first();
             if ($superpower) {

@@ -9,6 +9,12 @@ class GadgetHeroController extends Controller
 {
     public function addGadgetHero(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $validatedData = $request->validate([
             'superhero_id' => 'required',
             'gadget_id' => 'required',
@@ -73,6 +79,12 @@ class GadgetHeroController extends Controller
 
     public function deleteGadgetHero(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $validatedData = $request->validate([
             'superhero_id' => 'required',
             'gadget_id' => 'required',
@@ -113,6 +125,12 @@ class GadgetHeroController extends Controller
 
     public function getGadgetHero(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $validatedData = $request->validate([
             'superhero_id' => 'required',
         ]);

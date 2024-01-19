@@ -10,6 +10,12 @@ class PowerHeroController extends Controller
  
     public function addPowerHero(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $validatedData = $request->validate([
             'superhero_id' => 'required',
             'superpower_id' => 'required',
@@ -74,6 +80,12 @@ class PowerHeroController extends Controller
 
     public function deletePowerHero(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $validatedData = $request->validate([
             'superhero_id' => 'required',
             'superpower_id' => 'required',
@@ -114,6 +126,12 @@ class PowerHeroController extends Controller
 
     public function getPowerHero(Request $request)
     {
+        if ((new ApiController)->readHeaderCookie()[0] == false) {
+            return response()->json([
+                'code' => (new ApiController)->readHeaderCookie()[1],
+                'error' => (new ApiController)->readHeaderCookie()[2]
+            ]);
+        }
         $validatedData = $request->validate([
             'superhero_id' => 'required',
         ]);
