@@ -117,3 +117,5 @@ Route::get('createFrontSession',[FrontSessionController::class , 'createSession'
 Route::middleware('auth')->group(function () {
     Route::get('cities',[CityController::class , 'getcity']);
 });
+
+Route::post('test',[ApiController::class, 'readHeaderCookie']);
