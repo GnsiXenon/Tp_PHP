@@ -223,10 +223,21 @@ public function getHeroById($id)
         }
         $superhero->superpowers = DB::table('superpowers')->whereIn('id', $superpowersId)->get(['id', 'name']);
         // Check si l'id est dans la table superheroes_gadget et si oui, on récupère le gadget associé
-        $gadget = DB::table('superhero_gadget')->where('superhero_id', '=', $id)->first(['gadget_id']);
-        if ($gadget) {
-            $superhero->gadget = DB::table('gadgets')->where('id', '=', $gadget->gadget_id)->first(['id', 'name']);
+        $gadget = DB::table('superhero_gadget')->where('superhero_id', '=', $id)->get(['gadget_id']);
+        $gadgetId = [];
+        foreach ($gadget as $gadget) {
+            $gadgetId[] = $gadget->gadget_id;
         }
+        $superhero->gadgets = DB::table('gadgets')->whereIn('id', $gadgetId)->get(['id', 'name']);
+        // Check si l'id est dans la table superheroes_vehicle et si oui, on récupère le véhicule associé
+        $vehicle = DB::table('superhero_vehicle')->where('superhero_id', '=', $id)->get(['vehicle_id']);
+        $vehicleId = [];
+        foreach ($vehicle as $vehicle) {
+            $vehicleId[] = $vehicle->vehicle_id;
+        }
+        $superhero->vehicles = DB::table('vehicles')->whereIn('id', $vehicleId)->get(['id', 'name']);
+        
+      
     } else {
         return response()->json([
             'code' => '404',
