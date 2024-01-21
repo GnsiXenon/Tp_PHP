@@ -103,8 +103,31 @@ class UserController extends Controller
         $password = $request->input("password");
         $email = $request->input("email");
         $user = DB::table('users')->where('email', $email)->first();
-        $passworduser = $user->password;
-        $id = $user->id;
+
+        if ($user) {
+            $passworduser = $user->password;
+            $id = $user->id;
+
+            // Continue with the password verification logic
+            if (hash('sha256', $password) === $passworduser) {
+                $cookie = $this->createSession($id);
+                return response()->json([
+                    'code' => '200',
+                    'message' => 'Password matched',
+                    'api_token' => $cookie
+                ]);
+            } else {
+                return response()->json([
+                    'code' => '401',
+                    'message' => 'Password mismatch'
+                ]);
+            }
+        } else {
+            return response()->json([
+                'code' => '404',
+                'message' => 'Email not found'
+            ]);
+        }
 
         if (hash('sha256', $password) === $passworduser) {
             $cookie = $this->createSession($id);
