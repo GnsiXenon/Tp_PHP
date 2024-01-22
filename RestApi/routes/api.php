@@ -44,6 +44,7 @@ Route::get('checkSession',[UserController::class , 'CheckSession']);
 // City 
 
 Route::post('city',[CityController::class , 'createCity']);
+Route::get('cities',[CityController::class , 'getcity']);
 Route::put('city/{id}',[CityController::class , 'updateCityById']);
 Route::delete('city/{id}',[CityController::class , 'deleteCityById']);
 Route::get('city/{id}',[CityController::class , 'getCityById']);
@@ -114,8 +115,5 @@ Route::get('getgrouphero',[GroupHeroController::class , 'getGroupHero']);
 // Create a front end session
 Route::get('createFrontSession',[FrontSessionController::class , 'createSession']);
 
-Route::middleware('auth')->group(function () {
-    Route::get('cities',[CityController::class , 'getcity']);
-});
 
 Route::post('test',[ApiController::class, 'readHeaderCookie']);
